@@ -108,13 +108,14 @@ public class Dashboard extends Fragment {
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String driverName = Utility.utility.getLoggedName(getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.ON_PROGRESS+"\"], [\"Job Order\",\"driver\",\"=\",\"DR_0009\"]]");
+        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.ON_PROGRESS+"\"], [\"Job Order\",\"driver\",\"=\",\""+driverName+"\"]]");
         callJO.enqueue(new Callback<JobOrderResponse>() {
             @Override
             public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
                 if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
                     JobOrderResponse jobOrderResponse = response.body();
                     jobOrders = jobOrderResponse.jobOrders;
+                    noData.setVisibility(View.GONE);
                     if (jobOrders.size() == 0) noData.setVisibility(View.VISIBLE);
                     else {
                         PendingOrderAdapter pendingOrderAdapter = new PendingOrderAdapter(v.getContext(), R.layout.fragment_order_on_progress_list, jobOrders);

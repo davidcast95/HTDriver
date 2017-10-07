@@ -91,7 +91,7 @@ public class OrderActive extends Fragment {
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String driverName = Utility.utility.getLoggedName(getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.ON_PROGRESS+"\"], [\"Job Order\",\"driver\",\"=\",\"DR_0009\"]]");
+        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.ON_PROGRESS+"\"], [\"Job Order\",\"driver\",\"=\",\""+driverName+"\"]]");
         callJO.enqueue(new Callback<JobOrderResponse>() {
             @Override
             public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
