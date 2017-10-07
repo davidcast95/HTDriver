@@ -60,9 +60,10 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(Call<DriverLogin> call, Response<DriverLogin> response) {
 
+                loading.setVisibility(View.GONE);
                 if(Utility.utility.catchResponse(getApplicationContext(), response)) {
                     DriverLogin driverLogin = response.body();
-                    Utility.utility.saveLoggedName(driverLogin.full_name, activity);
+                    Utility.utility.saveLoggedName(user, activity);
 
                     Utility.utility.saveCookieJarToPreference(cookieJar, activity);
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
