@@ -49,8 +49,7 @@ public interface API {
     Call<JSONObject> submitJobOrder(@Body JobOrderData data);
 
 
-    //old
-    @GET("/api/resource/Vendor?fields=[\"nama\",\"telp\",\"alamat\",\"email\"]")
+    @GET("/api/resource/Driver?fields=[\"nama\",\"phone\",\"address\",\"email\"]")
     Call<ProfilResponse> getProfile(@Query("filters") String filter);
 
 

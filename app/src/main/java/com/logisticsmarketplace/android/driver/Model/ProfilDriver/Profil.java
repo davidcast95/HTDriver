@@ -9,9 +9,9 @@ import com.google.gson.annotations.SerializedName;
 public class Profil {
     @SerializedName("nama")
     public String name;
-    @SerializedName("telp")
+    @SerializedName("phone")
     public String phone;
-    @SerializedName("alamat")
+    @SerializedName("address")
     public String address;
     @SerializedName("email")
     public String email;
