@@ -179,7 +179,7 @@ public class Utility {
 
     //UNTUK format date di database e ko Ronny
     public String dateToFormatDatabase(Date date) {
-        String myFormat = "yyyy-MM-dd";
+        String myFormat = "yyyy-MM-dd HH:mm:ss.SSS";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         return sdf.format(date);
     }
