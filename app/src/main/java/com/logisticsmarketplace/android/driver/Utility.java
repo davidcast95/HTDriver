@@ -65,6 +65,8 @@ public class Utility {
 
     public static String formatDateFromstring(String inputFormat, String outputFormat, String inputDate){
 
+        if (inputDate == null) return "";
+        if (inputDate.equals("")) return "";
         Date parsed = null;
         String outputDate = "";
 
