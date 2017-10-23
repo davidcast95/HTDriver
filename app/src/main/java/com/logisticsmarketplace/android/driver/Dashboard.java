@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.logisticsmarketplace.android.driver.API.API;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Active.DetailOrderActive;
-import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Pending.DetailOrderPending;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderData;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderResponse;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderStatus;
@@ -99,12 +98,19 @@ public class Dashboard extends Fragment {
             Intent goDetail = new Intent(getActivity().getApplicationContext(),DetailOrderActive.class);
             goDetail.putExtra("index",position);
             goDetail.putExtra("from","Dashboard");
-            startActivity(goDetail);
+            startActivityForResult(goDetail, 200);
         }
     };
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getOnProgressOrder();
+    }
+
     //API
     void getOnProgressOrder() {
+        noData.setVisibility(View.GONE);
+        lv.setVisibility(View.GONE);
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String driverName = Utility.utility.getLoggedName(getActivity());
@@ -118,7 +124,7 @@ public class Dashboard extends Fragment {
                     noData.setVisibility(View.GONE);
                     if (jobOrders.size() == 0) noData.setVisibility(View.VISIBLE);
                     else {
-                        PendingOrderAdapter pendingOrderAdapter = new PendingOrderAdapter(v.getContext(), R.layout.fragment_order_on_progress_list, jobOrders);
+                        PendingOrderAdapter pendingOrderAdapter = new PendingOrderAdapter(v.getContext(), R.layout.default_order_list, jobOrders);
                         lv.setOnItemClickListener(onListClick);
                         lv.setAdapter(pendingOrderAdapter);
                         lv.setVisibility(View.VISIBLE);

@@ -1,4 +1,4 @@
-package com.logisticsmarketplace.android.driver.Lihat_Pesanan.Active;
+package com.logisticsmarketplace.android.driver.Lihat_Pesanan.Done;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,9 +17,9 @@ import java.util.List;
  * Created by Kristoforus Gumilang on 8/24/2017.
  */
 
-public class OrderActiveAdapter extends JobOrderAdapter {
+public class OrderPendingAdapter extends JobOrderAdapter {
 
-    public OrderActiveAdapter(Context context, int layout, List<JobOrderData> list) {
+    public OrderPendingAdapter(Context context, int layout, List<JobOrderData> list) {
         super(context, layout, list);
     }
 }

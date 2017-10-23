@@ -1,4 +1,4 @@
-package com.logisticsmarketplace.android.driver.Lihat_Pesanan.Pending;
+package com.logisticsmarketplace.android.driver.Lihat_Pesanan.Done;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderPending extends Fragment {
+public class OrderDone extends Fragment {
     View v;
     OrderPendingAdapter onOrderPendingAdapter;
     ListView lv;
@@ -37,7 +37,7 @@ public class OrderPending extends Fragment {
 
     public static List<JobOrderData> jobOrders;
 
-    public OrderPending() {
+    public OrderDone() {
         // Required empty public constructor
     }
 
@@ -70,9 +70,9 @@ public class OrderPending extends Fragment {
         public void onItemClick(AdapterView<?> parent,
                                 View view,
                                 int position, long id){
-            Intent goDetail = new Intent(getActivity().getApplicationContext(),DetailOrderPending.class);
+            Intent goDetail = new Intent(getActivity().getApplicationContext(),DetailOrderDone.class);
             goDetail.putExtra("index", position);
-            goDetail.putExtra("from","View Order");
+            goDetail.putExtra("from","OrderDone");
             startActivity(goDetail);
         }
     };

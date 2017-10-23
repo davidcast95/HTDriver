@@ -2,9 +2,11 @@ package com.logisticsmarketplace.android.driver;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -141,6 +143,7 @@ public class Utility {
     }
 
     public <T> boolean catchResponse(Context context, Response<T> response) {
+        if (context == null) return false;
         if (response.message().equals("OK")) {
             Log.e("DATA UPLOADED","OK");
             return true;
@@ -207,4 +210,12 @@ public class Utility {
         listView.requestLayout();
     }
 
+    public void setDialContactPhone(View trigger, final String phoneNumber,final Activity activity) {
+        trigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
+            }
+        });
+    }
 }

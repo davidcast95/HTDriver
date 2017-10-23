@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Active.OrderActive;
-import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Pending.OrderPending;
+import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Done.OrderDone;
 import com.logisticsmarketplace.android.driver.R;
 
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
         viewPager = (ViewPager)v.findViewById(R.id.view_pager);
         List<Fragment> listFragments =  new ArrayList<Fragment>();
         listFragments.add(new OrderActive());
-        listFragments.add(new OrderPending());
+        listFragments.add(new OrderDone());
 
         ViewJobOrderPagerAdapter viewJobOrderAdapter = new ViewJobOrderPagerAdapter(getChildFragmentManager(), listFragments);
         viewPager.setAdapter(viewJobOrderAdapter);

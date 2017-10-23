@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class JobOrderData {
+    @SerializedName("reference")
+    public String ref;
+    @SerializedName("docstatus")
+    public int docstatus;
     @SerializedName("status")
     public String status;
     @SerializedName("name")
@@ -36,6 +40,20 @@ public class JobOrderData {
     public String vendor_cp_phone = "";
     @SerializedName("goods_information")
     public String cargoInfo = "";
+    @SerializedName("accept_date")
+    public String acceptDate;
+    @SerializedName("estimate_volume")
+    public String estimate_volume;
+    @SerializedName("suggest_truck_type")
+    public String suggest_truck_type;
+    @SerializedName("strict")
+    public int strict;
+    @SerializedName("truck_type")
+    public String truck_type;
+    @SerializedName("truck")
+    public String truck;
+    @SerializedName("driver")
+    public String driver;
 
 
 }

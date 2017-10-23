@@ -73,7 +73,7 @@ public class OrderActive extends Fragment {
                                 int position, long id){
             Intent goDetail = new Intent(getActivity().getApplicationContext(),DetailOrderActive.class);
             goDetail.putExtra("index",position);
-            goDetail.putExtra("from","View Order");
+            goDetail.putExtra("from","OrderActive");
             startActivity(goDetail);
         }
     };

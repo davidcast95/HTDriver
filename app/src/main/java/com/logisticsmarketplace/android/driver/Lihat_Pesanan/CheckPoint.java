@@ -10,6 +10,7 @@ import android.location.Location;
 
 import com.google.android.gms.location.LocationListener;
 
+import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -27,15 +28,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.logisticsmarketplace.android.driver.API.API;
+import com.logisticsmarketplace.android.driver.GPSActivity.GPSActivity;
+import com.logisticsmarketplace.android.driver.GPSActivity.GPSServices;
 import com.logisticsmarketplace.android.driver.MainActivity;
 import com.logisticsmarketplace.android.driver.Maps.DirectionFinderListener;
 import com.logisticsmarketplace.android.driver.Maps.Route;
+import com.logisticsmarketplace.android.driver.Model.Driver.DriverStatus;
+import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateCreation;
 import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateData;
+import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateImage;
 import com.logisticsmarketplace.android.driver.Model.MyCookieJar;
 import com.logisticsmarketplace.android.driver.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -50,27 +57,44 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.logisticsmarketplace.android.driver.Utility;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback, DirectionFinderListener,
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
-        LocationListener{
+public class CheckPoint extends GPSActivity {
+
+    int REQUEST_CAMERA = 1;
 
     private Spinner spinner;
     private GoogleMap mMap;
     Double lat=0.0, longi=0.0;
+    ProgressBar loading;
     EditText notesEditText;
+    GridView gridView;
+    CheckPointAdapter checkPointAdapter;
     List<String> categories = new ArrayList<String>();
-    String joid, principle, vendor;
+    String joid, principle, vendor, driver;
+    List<Bitmap> bufferListImages;
+
+
+    Button klik;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,23 +102,112 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
         setTitle(R.string.checkpoint);
         setContentView(R.layout.activity_check_point);
 
+        loading=(ProgressBar)findViewById(R.id.loading);
+        loading.setVisibility(View.GONE);
+        gridView = (GridView) findViewById(R.id.photo);
+
         notesEditText = (EditText)findViewById(R.id.notes);
         Intent intent = getIntent();
         joid = intent.getStringExtra("joid");
         principle = intent.getStringExtra("principle");
         vendor = intent.getStringExtra("vendor");
+        driver = intent.getStringExtra("driver");
 
         getNextStage();
+        bufferListImages = new ArrayList<>();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
 
+        klik = (Button)findViewById(R.id.addphoto);
+        klik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                takephoto();
+            }
+        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+    }
+
+    public void takephoto(){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        REQUEST_CAMERA);
+            }
+        } else {
+            Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(camera,0);
+        }
+
+    }
+
+    private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener(){
+        public void onItemClick(AdapterView<?> parent,
+                                View view,
+                                int position, long id){
+            int idi= (int) id;
+            Log.e("ID HAPUS",id+"");
+            Log.e("ID HAPUS",idi+"");
+            dialog(idi);
+        }
+    };
+
+    public void dialog(int id) {
+        final int idhapus=id;
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.confirm)
+                .setMessage(R.string.confirmdeletfoto)
+                .setPositiveButton(R.string.popup_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        bufferListImages.remove(idhapus);
+                        Log.e("SIZE", bufferListImages.size()+"");
+                        checkPointAdapter = new CheckPointAdapter(getApplicationContext(),R.layout.activity_check_point_photo_list, bufferListImages);
+                        gridView.setAdapter(checkPointAdapter);
+                        gridView.setOnItemClickListener(onListClick);
+                        klik.setVisibility(View.VISIBLE);
+
+                    }
+                })
+                .setNegativeButton(R.string.popup_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if(data != null){
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            image1.setImageBitmap(imageBitmap);
+            bufferListImages.add(imageBitmap);
+            if(bufferListImages.size()==5){
+                klik.setVisibility(View.INVISIBLE);
+            }
+
+            checkPointAdapter = new CheckPointAdapter(getApplicationContext(),R.layout.activity_check_point_photo_list, bufferListImages);
+            gridView.setAdapter(checkPointAdapter);
+            gridView.setOnItemClickListener(onListClick);
+        }
     }
 
     void updateStateUI() {
@@ -107,6 +220,7 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
     }
     //API
     void updateStatus() {
+        loading.setVisibility(View.VISIBLE);
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         JobOrderUpdateData jobOrderUpdateData = new JobOrderUpdateData();
@@ -121,16 +235,118 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
         jobOrderUpdateData.vendor = vendor;
         String status = spinner.getSelectedItem().toString();
         jobOrderUpdateData.status = status;
+        if (status.equals("Selesai")) {
+            updateJOStatus();
+        }
         String a = new Gson().toJson(jobOrderUpdateData);
-        Call<JSONObject> callInsertUpdateJO = api.insertUpdateJO(jobOrderUpdateData);
-        callInsertUpdateJO.enqueue(new Callback<JSONObject>() {
+        Call<JobOrderUpdateCreation> callInsertUpdateJO = api.insertUpdateJO(jobOrderUpdateData);
+        callInsertUpdateJO.enqueue(new Callback<JobOrderUpdateCreation>() {
+            @Override
+            public void onResponse(Call<JobOrderUpdateCreation> call, Response<JobOrderUpdateCreation> response) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                    String updateJOID = response.body().data.id;
+                    uploadImage(updateJOID);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JobOrderUpdateCreation> call, Throwable t) {
+                loading.setVisibility(View.GONE);
+                Utility.utility.showConnectivityUnstable(getApplicationContext());
+            }
+        });
+    }
+
+    void uploadImage(final String updateJOID) {
+        if (bufferListImages.size() > 0) {
+            MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+            API api = Utility.utility.getAPIWithCookie(cookieJar);
+            byte[] tempBytes;
+            ByteArrayOutputStream os;
+            try {
+                os = new ByteArrayOutputStream();
+                bufferListImages.get(0).compress(Bitmap.CompressFormat.JPEG, 80, os);
+                tempBytes = os.toByteArray();
+                os.close();
+
+                RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), tempBytes);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("file", updateJOID + ".jpg", requestFile);
+                JobOrderUpdateImage jobOrderUpdateImage = new JobOrderUpdateImage();
+
+                jobOrderUpdateImage.jouid = updateJOID;
+                jobOrderUpdateImage.image = body;
+                Call<ResponseBody> uploadCall = api.uploadImage(jobOrderUpdateImage);
+                uploadCall.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (Utility.utility.catchResponse(getApplicationContext(),response)) {
+                            bufferListImages.remove(0);
+                            uploadImage(updateJOID);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+//            byte[] tempBytes;
+//            ByteArrayOutputStream os;
+//            try {
+//                os = new ByteArrayOutputStream();
+//                bufferListImages.get(0).compress(Bitmap.CompressFormat.JPEG, 80, os);
+//                tempBytes = os.toByteArray();
+//                os.close();
+//
+//                RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"),tempBytes);
+//                MultipartBody.Part body = MultipartBody.Part.createFormData("file",updateJOID + ".jpg",requestFile);
+//
+//                RequestBody jobOrderUpdateData = RequestBody.create(MediaType.parse())
+//
+//
+//                Call<ResponseBody> uploadImageCall = api.uploadImage(jobOrderUpdateData, body);
+//                uploadImageCall.enqueue(new Callback<ResponseBody>() {
+//                    @Override
+//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                        if (Utility.utility.catchResponse(getApplicationContext(),response)) {
+//                            bufferListImages.remove(0);
+//                            uploadImage(updateJOID);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//                    }
+//                });
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+
+
+        } else {
+            Toast.makeText(getApplicationContext(), joid + " has been updated",Toast.LENGTH_SHORT);
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
+
+    void updateJOStatus() {
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        HashMap<String,String> statusJSON = new HashMap<>();
+        statusJSON.put("status","Selesai");
+        Call<JSONObject> callUpdateJO = api.updateJobOrder(joid, statusJSON);
+        callUpdateJO.enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
                 if (Utility.utility.catchResponse(getApplicationContext(), response)) {
-
-                    Toast.makeText(getApplicationContext(), joid + " has been updated",Toast.LENGTH_SHORT);
-                    setResult(RESULT_OK);
-                    finish();
+                    updateDriver();
                 }
             }
 
@@ -139,6 +355,27 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
                 Utility.utility.showConnectivityUnstable(getApplicationContext());
             }
         });
+    }
+    void updateDriver() {
+//        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+//        API api = Utility.utility.getAPIWithCookie(cookieJar);
+//        HashMap<String,String> statusJSON = new HashMap<>();
+//        statusJSON.put("status", DriverStatus.AVAILABLE);
+//        String a = new Gson().toJson(statusJSON);
+//        Call<JSONObject> callUpdateJO = api.updateDriver(driver, statusJSON);
+//        callUpdateJO.enqueue(new Callback<JSONObject>() {
+//            @Override
+//            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+//                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JSONObject> call, Throwable t) {
+//                Utility.utility.showConnectivityUnstable(getApplicationContext());
+//            }
+//        });
     }
 
 
@@ -164,44 +401,23 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
 //        LatLng lokasi = new LatLng(0,0);
 //        mMap.addMarker(new MarkerOptions().position(lokasi).title(""));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 17));
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
+        if (GPSServices.mGoogleApiClient == null) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    buildGoogleApiClient();
+                    mMap.setMyLocationEnabled(true);
+                }
+            } else {
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
             }
-        }
-        else {
-            buildGoogleApiClient();
+        } else {
             mMap.setMyLocationEnabled(true);
         }
     }
-    GoogleApiClient mGoogleApiClient;
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
-    }
 
-    LocationRequest mLocationRequest;
-    @Override
-    public void onConnected(Bundle bundle) {
-
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest,this);
-        }
-
-    }
 
     Location mLastLocation;
     Marker mCurrLocationMarker;
@@ -217,16 +433,13 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         lat=location.getLatitude();
         longi=location.getLongitude();
+
         Log.e("LATLONG",lat+","+longi);
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
 
-        //stop location updates
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
     }
 
 
@@ -275,10 +488,10 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
 
-                        if (mGoogleApiClient == null) {
+                        if (GPSServices.mGoogleApiClient == null) {
                             buildGoogleApiClient();
                         }
-                        mMap.setMyLocationEnabled(true);
+//                        mMap.setMyLocationEnabled(true);
                     }
 
                 } else {
@@ -341,13 +554,8 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
         return true;
     }
 
-    @Override
-    public void onConnectionSuspended(int i) {
 
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    void updateBackground() {
 
     }
 

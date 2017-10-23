@@ -1,4 +1,4 @@
-package com.logisticsmarketplace.android.driver.Lihat_Pesanan.Active;
+package com.logisticsmarketplace.android.driver.Lihat_Pesanan.Done;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.logisticsmarketplace.android.driver.API.API;
 import com.logisticsmarketplace.android.driver.Dashboard;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Base.DetailOrder;
-import com.logisticsmarketplace.android.driver.Lihat_Pesanan.CheckPoint;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.TrackHistory;
 import com.logisticsmarketplace.android.driver.Maps.TrackOrderMaps;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderData;
@@ -32,15 +31,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailOrderActive extends DetailOrder {
+public class DetailOrderDone extends DetailOrder {
 
     @Override
     protected String getTitleString(String title) {
-        return "Detail Order Aktif";
+        return "Detail Order Selesai";
     }
 
     @Override
     protected Boolean hasOptionMenu(Boolean has) {
-        return true;
+        return false;
     }
 }

@@ -5,7 +5,9 @@ import com.logisticsmarketplace.android.driver.Model.Driver.DriverResponse;
 import com.logisticsmarketplace.android.driver.Model.History.HistoryResponse;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderData;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderResponse;
+import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateCreation;
 import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateData;
+import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateImage;
 import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateResponse;
 import com.logisticsmarketplace.android.driver.Model.Login.DriverLogin;
 import com.logisticsmarketplace.android.driver.Model.ProfilDriver.ProfilResponse;
@@ -14,35 +16,51 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
 public interface API {
-    public final String BASE_URL = "http://172.104.166.12";
+    //    public final String BASE_URL = "http://172.104.166.12";
+    public final String BASE_URL = "http://172.104.163.118";
 
     //JOB ORDER UPDATE
     @GET("/api/resource/Job Order Update?fields=[\"name\",\"waktu\",\"lo\",\"lat\",\"note\",\"job_order\",\"docstatus\",\"status\",\"vendor\",\"principle\"]")
     Call<JobOrderUpdateResponse> getJOUpdate(@Query("filters") String filters);
     @POST("/api/resource/Job Order Update")
-    Call<JSONObject> insertUpdateJO(@Body JobOrderUpdateData jobOrderUpdateData);
+    Call<JobOrderUpdateCreation> insertUpdateJO(@Body JobOrderUpdateData jobOrderUpdateData);
+
+    //JOB ORDER UPDATE IMAGE
+//    @Multipart
+//    Call<ResponseBody> uploadImage(@Part("jouid") RequestBody jobOrderUpdateData, @Part("file") MultipartBody.Part file);
+    @Headers("Content-Type:application/json")
+    @POST("/api/resource/Job Order Update Image")
+    Call<ResponseBody> uploadImage(@Body JobOrderUpdateImage jobOrderUpdateImage);
 
     //DRIVER
     @GET("/api/resource/Driver?fields=[\"name\",\"nama\",\"email\",\"address\",\"phone\"]")
     Call<DriverResponse> getDriver(@Query("filters") String filters);
     @POST("/api/resource/Driver")
     Call<JSONObject> registerDriver(@Body Driver newDriver);
+    @PUT("/api/resource/Driver/{id}")
+    Call<JSONObject> updateDriver(@Path("id") String id, @Body HashMap<String , String> change);
 
     //JOB ORDER
     @PUT("/api/resource/Job Order/{id}")
     Call<JSONObject> updateJobOrder(@Path("id") String id, @Body HashMap<String, String> change);
 
-    @GET("/api/resource/Job Order?fields=[\"status\",\"name\", \"principle\",\"vendor\",\"pick_location\",\"delivery_location\",\"nama_principle_cp\",\"telp_principle_cp\",\"nama_vendor_cp\",\"telp_vendor_cp\",\"pick_date\",\"expected_delivery\",\"goods_information\",\"notes\"]")
+    @GET("/api/resource/Job Order?fields=[\"reference\",\"status\",\"name\", \"principle\",\"vendor\",\"pick_location\",\"delivery_location\",\"nama_principle_cp\",\"telp_principle_cp\",\"nama_vendor_cp\",\"telp_vendor_cp\",\"pick_date\",\"expected_delivery\",\"goods_information\",\"notes\",\"accept_date\",\"suggest_truck_type\",\"strict\",\"estimate_volume\",\"truck\",\"truck_type\",\"truck_volume\",\"driver\"]")
     Call<JobOrderResponse> getJobOrder(@Query("filters") String filters);
 
     @POST("/api/resource/Job Order")

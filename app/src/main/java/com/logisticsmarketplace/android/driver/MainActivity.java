@@ -17,11 +17,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.logisticsmarketplace.android.driver.Bantuan.Bantuan;
+import com.logisticsmarketplace.android.driver.GPSActivity.GPSActivity;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.ViewJobOrder;
 import com.logisticsmarketplace.android.driver.Lihat_Profile.MyProfile;
 import com.logisticsmarketplace.android.driver.Pengaturan.Settings;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends GPSActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override

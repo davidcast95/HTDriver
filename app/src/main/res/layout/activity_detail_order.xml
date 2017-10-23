@@ -17,6 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <TextView
+                android:id="@+id/ref_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ref ID : "
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="16dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -169,6 +178,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Vendor CP Phone"/>
                             <TextView
+                                android:clickable="true"
+                                android:textColor="@color/colorPrimary2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAlignment="textEnd"
@@ -241,6 +252,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Principle CP Phone"/>
                             <TextView
+                                android:clickable="true"
+                                android:textColor="@color/colorPrimary2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAlignment="textEnd"
@@ -301,7 +314,8 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp">
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginBottom="4dp">
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -313,6 +327,56 @@
                                         android:text="dd-mm-yy"
                                         android:layout_marginRight="15dp"
                                         android:id="@+id/delivered_date"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginBottom="4dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Estimate Volume"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textAlignment="textEnd"
+                                        android:text=""
+                                        android:layout_marginRight="15dp"
+                                        android:id="@+id/volume"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginBottom="4dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Truck"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textAlignment="textEnd"
+                                        android:text=""
+                                        android:layout_marginRight="15dp"
+                                        android:id="@+id/truck"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Truck Type"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textAlignment="textEnd"
+                                        android:text=""
+                                        android:layout_marginRight="15dp"
+                                        android:id="@+id/truck_type"/>
                                 </LinearLayout>
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -576,8 +640,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="7dp"
-                        android:layout_marginBottom="10dp"
-                        android:visibility="gone">
+                        android:layout_marginBottom="10dp">
                         <LinearLayout
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"

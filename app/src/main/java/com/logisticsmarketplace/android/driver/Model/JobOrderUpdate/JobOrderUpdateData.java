@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class JobOrderUpdateData {
+    @SerializedName("name")
+    public String id;
     @SerializedName("waktu")
     public String time;
     @SerializedName("job_order")
