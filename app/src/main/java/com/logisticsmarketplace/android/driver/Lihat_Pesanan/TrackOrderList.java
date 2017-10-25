@@ -13,11 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.logisticsmarketplace.android.driver.GPSActivity.GPSActivity;
 import com.logisticsmarketplace.android.driver.Maps.TrackOrderMaps;
 import com.logisticsmarketplace.android.driver.R;
 import com.logisticsmarketplace.android.driver.Utility;
 
-public class TrackOrderList extends AppCompatActivity {
+public class TrackOrderList extends GPSActivity {
 
     ProgressBar loading;
     SwipeRefreshLayout mSwipeRefreshLayout;

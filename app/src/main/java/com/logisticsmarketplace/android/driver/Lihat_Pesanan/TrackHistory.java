@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.logisticsmarketplace.android.driver.API.API;
+import com.logisticsmarketplace.android.driver.GPSActivity.GPSActivity;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Active.DetailOrderActive;
 import com.logisticsmarketplace.android.driver.Model.History.HistoryHistory;
 import com.logisticsmarketplace.android.driver.Model.History.HistoryResponse;
@@ -26,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TrackHistory extends AppCompatActivity {
+public class TrackHistory extends GPSActivity {
 
     String joid, date,to,from;
     ListView lv;

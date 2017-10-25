@@ -1,5 +1,6 @@
 package com.logisticsmarketplace.android.driver.API;
 
+import com.logisticsmarketplace.android.driver.Model.BackgroundData.BackgroundData;
 import com.logisticsmarketplace.android.driver.Model.Driver.Driver;
 import com.logisticsmarketplace.android.driver.Model.Driver.DriverResponse;
 import com.logisticsmarketplace.android.driver.Model.History.HistoryResponse;
@@ -70,6 +71,9 @@ public interface API {
     @GET("/api/resource/Driver?fields=[\"nama\",\"phone\",\"address\",\"email\"]")
     Call<ProfilResponse> getProfile(@Query("filters") String filter);
 
+    //BACKGROUND
+    @POST("/api/resource/Driver Background Update")
+    Call<ResponseBody> updateBackground(@Body BackgroundData data);
 
     @GET("/api/method/logistic.job_order.history")
     Call<HistoryResponse> getHistory(@Query("jaid") String jaid);

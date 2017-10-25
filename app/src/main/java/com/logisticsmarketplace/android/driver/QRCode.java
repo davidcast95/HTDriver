@@ -8,7 +8,6 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -26,11 +25,12 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.logisticsmarketplace.android.driver.GPSActivity.GPSActivity;
 
 import java.io.IOException;
 
 
-public class QRCode extends AppCompatActivity {
+public class QRCode extends GPSActivity {
     SurfaceView cameraPreview;
     TextView textResult;
     BarcodeDetector barcodeDetector;
