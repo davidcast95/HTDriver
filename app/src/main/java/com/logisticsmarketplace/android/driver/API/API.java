@@ -1,6 +1,7 @@
 package com.logisticsmarketplace.android.driver.API;
 
 import com.logisticsmarketplace.android.driver.Model.BackgroundData.BackgroundData;
+import com.logisticsmarketplace.android.driver.Model.Default.DataMessage;
 import com.logisticsmarketplace.android.driver.Model.Driver.Driver;
 import com.logisticsmarketplace.android.driver.Model.Driver.DriverResponse;
 import com.logisticsmarketplace.android.driver.Model.History.HistoryResponse;
@@ -22,6 +23,8 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -45,9 +48,10 @@ public interface API {
     //JOB ORDER UPDATE IMAGE
 //    @Multipart
 //    Call<ResponseBody> uploadImage(@Part("jouid") RequestBody jobOrderUpdateData, @Part("file") MultipartBody.Part file);
-    @Headers("Content-Type:application/json")
-    @POST("/api/resource/Job Order Update Image")
-    Call<ResponseBody> uploadImage(@Body JobOrderUpdateImage jobOrderUpdateImage);
+//    @Headers("Content-Type:application/json")
+//    @POST("/api/resource/Job Order Update Image")
+    @POST("/api/method/logistic_marketplace.job_order.image")
+    Call<ResponseBody> uploadImage(@Body HashMap<String,String> data);
 
     //DRIVER
     @GET("/api/resource/Driver?fields=[\"name\",\"nama\",\"email\",\"address\",\"phone\"]")

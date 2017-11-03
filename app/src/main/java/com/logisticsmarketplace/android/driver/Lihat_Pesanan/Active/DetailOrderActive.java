@@ -36,7 +36,7 @@ public class DetailOrderActive extends DetailOrder {
 
     @Override
     protected String getTitleString(String title) {
-        return "Detail Order Aktif";
+        return getString(R.string.dpa);
     }
 
     @Override

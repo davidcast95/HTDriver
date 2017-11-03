@@ -51,7 +51,7 @@ public class Dashboard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getLanguage();
+        Utility.utility.getLanguage(this.getActivity());
         v = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         noData = (TextView) v.findViewById(R.id.no_data);
@@ -70,26 +70,6 @@ public class Dashboard extends Fragment {
         return v;
     }
 
-    public void getLanguage(){
-        SharedPreferences prefs = this.getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-        String language = prefs.getString("language","English");
-
-        if(language.contentEquals("English")){
-            setLocal("en");
-        }
-        else {
-            setLocal("in");
-        }
-    }
-    private void setLocal(String language) {
-        Locale myLocale;
-        myLocale = new Locale(language);
-        Resources res = getResources();
-        DisplayMetrics dm= res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf,dm);
-    }
 
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener(){
         public void onItemClick(AdapterView<?> parent,

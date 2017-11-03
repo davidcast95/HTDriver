@@ -96,6 +96,7 @@ public class DetailOrder extends GPSActivity {
             TextView volume = (TextView) findViewById(R.id.volume);
             TextView truck = (TextView) findViewById(R.id.truck);
             TextView truck_type = (TextView)findViewById(R.id.truck_type);
+            TextView cargoNote = (TextView)findViewById(R.id.cargo_notes);
 
             if (jobOrder.ref == null) jobOrder.ref = "";
             ref.setText("Ref No : " + jobOrder.ref);
@@ -116,6 +117,7 @@ public class DetailOrder extends GPSActivity {
             volume.setText(jobOrder.estimate_volume);
             truck.setText(jobOrder.truck);
             truck_type.setText(jobOrder.truck_type);
+            cargoNote.setText(jobOrder.notes);
         }
 
         getLastUpdate();

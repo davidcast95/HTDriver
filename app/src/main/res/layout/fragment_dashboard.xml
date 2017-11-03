@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:text="Active Job Orders"
+            android:text="@string/dashboard_active_jo"
             android:layout_margin="12dp"/>
         <TextView
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:textSize="18dp"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:text="No data"
+            android:text="@string/nodata"
             android:layout_margin="12dp"
             android:visibility="gone"
             android:id="@+id/no_data"/>

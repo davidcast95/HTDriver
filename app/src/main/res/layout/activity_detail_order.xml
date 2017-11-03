@@ -58,7 +58,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="job id"
+                                    android:text="-"
                                     android:id="@+id/joid"
                                     android:textStyle="bold"
                                     android:layout_marginBottom="5dp"
@@ -79,7 +79,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="5dp"
                                     android:id="@+id/origin"
-                                    android:text="origin"
+                                    android:text=""
                                     android:textSize="14dp"/>
                             </LinearLayout>
                             <LinearLayout
@@ -106,7 +106,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="5dp"
                                     android:textSize="14dp"
-                                    android:text="destination"/>
+                                    android:text=""/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -134,7 +134,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vendor Information"
+                            android:text="@string/dp_vendorinfo"
                             android:textSize="16dp"
                             android:textStyle="bold"/>
                         <LinearLayout
@@ -144,12 +144,12 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Vendor Name"/>
+                                android:text="@string/dp_vendorcpname"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAlignment="textEnd"
-                                android:text="Going Merry"
+                                android:text="-"
                                 android:layout_marginRight="15dp"
                                 android:id="@+id/vendor_name"/>
                         </LinearLayout>
@@ -160,12 +160,12 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Vendor CP Name"/>
+                                android:text="@string/dp_vendorcpname"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAlignment="textEnd"
-                                android:text="CV. Vendor"
+                                android:text="-"
                                 android:layout_marginRight="15dp"
                                 android:id="@+id/vendor_cp_name"/>
                         </LinearLayout>
@@ -176,14 +176,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Vendor CP Phone"/>
+                                android:text="@string/dp_vendorcpphone"/>
                             <TextView
                                 android:clickable="true"
                                 android:textColor="@color/colorPrimary2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAlignment="textEnd"
-                                android:text="023842934234"
+                                android:text="-"
                                 android:layout_marginRight="15dp"
                                 android:id="@+id/vendor_cp_phone"/>
                         </LinearLayout>
@@ -207,23 +207,22 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Principle Information"
+                            android:text="@string/dp_principleinfo"
                             android:textSize="16dp"
                             android:textStyle="bold"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginBottom="4dp">
+                            android:layout_marginLeft="7dp">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Principle Name"/>
+                                android:text="@string/dp_principlename"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAlignment="textEnd"
-                                android:text="CV. Vendor"
+                                android:text="-"
                                 android:layout_marginRight="15dp"
                                 android:id="@+id/principle_name"/>
                         </LinearLayout>
@@ -234,12 +233,12 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Principle CP Name"/>
+                                android:text="@string/dp_principlecpname"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAlignment="textEnd"
-                                android:text="CV. Vendor"
+                                android:text="-"
                                 android:layout_marginRight="15dp"
                                 android:id="@+id/principle_cp_name"/>
                         </LinearLayout>
@@ -250,14 +249,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Principle CP Phone"/>
+                                android:text="@string/dp_principlecpphone"/>
                             <TextView
                                 android:clickable="true"
                                 android:textColor="@color/colorPrimary2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAlignment="textEnd"
-                                android:text="023842934234"
+                                android:text=""
                                 android:layout_marginRight="15dp"
                                 android:id="@+id/principle_cp_phone"/>
                         </LinearLayout>
@@ -290,7 +289,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Cargo Information"
+                                    android:text="@string/dp_cargoinfo"
                                     android:textStyle="bold"
                                     android:textSize="16dp"/>
                                 <LinearLayout
@@ -302,12 +301,12 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Estimate Pick Date"/>
+                                        android:text="@string/dp_estpick"/>
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textEnd"
-                                        android:text="dd-mm-yy"
+                                        android:text="-"
                                         android:layout_marginRight="15dp"
                                         android:id="@+id/pick_date"/>
                                 </LinearLayout>
@@ -319,12 +318,12 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Estimate Delivered Date"/>
+                                        android:text="@string/dp_estdelivered"/>
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textEnd"
-                                        android:text="dd-mm-yy"
+                                        android:text="-"
                                         android:layout_marginRight="15dp"
                                         android:id="@+id/delivered_date"/>
                                 </LinearLayout>
@@ -336,12 +335,12 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Estimate Volume"/>
+                                        android:text="@string/dp_estvolume"/>
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textEnd"
-                                        android:text=""
+                                        android:text="-"
                                         android:layout_marginRight="15dp"
                                         android:id="@+id/volume"/>
                                 </LinearLayout>
@@ -353,7 +352,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Truck"/>
+                                        android:text="@string/dp_cargotruck"/>
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -369,7 +368,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Truck Type"/>
+                                        android:text="@string/dp_cargotrucktype"/>
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -387,15 +386,35 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Cargo Info"/>
+                                        android:text="@string/dp_cargodetails"
+                                        android:layout_marginBottom="6dp"/>
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text="info"
+                                        android:text="-"
                                         android:inputType="textMultiLine"
-                                        android:height="100dp"
                                         android:textSize="14dp"
                                         android:id="@+id/cargo_info"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="7dp"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/dp_cargonote"
+                                        android:layout_marginBottom="6dp"/>
+                                    <TextView
+                                        android:layout_marginBottom="60dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="-"
+                                        android:inputType="textMultiLine"
+                                        android:textSize="14dp"
+                                        android:id="@+id/cargo_notes"/>
                                 </LinearLayout>
 
                             </LinearLayout>

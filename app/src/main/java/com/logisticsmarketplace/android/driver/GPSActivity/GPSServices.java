@@ -14,4 +14,5 @@ public class GPSServices {
     public static GoogleApiClient mGoogleApiClient;
     public static LocationRequest mLocationRequest;
     public static Location mLastLocation;
+
 }

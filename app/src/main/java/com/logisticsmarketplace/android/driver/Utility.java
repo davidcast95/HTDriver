@@ -53,9 +53,20 @@ public class Utility {
         editor.commit();
     }
 
+    public void saveBakgroundUpdate(Activity activity, int interval) {
+        SharedPreferences prefs1 = activity.getSharedPreferences("GlobalSettings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs1.edit();
+        editor.putInt("intervalGPS", interval);
+        editor.commit();
+    }
+    public int getBackgroundUpdate(Activity activity) {
+        SharedPreferences prefs1 = activity.getSharedPreferences("GlobalSettings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs1.edit();
+        return prefs1.getInt("intervalGPS",5);
+    }
     public void getLanguage(Activity activity){
         SharedPreferences prefs = activity.getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-        String language = prefs.getString("language","English");
+        String language = prefs.getString("language","Bahasa Indonesia");
         Log.e("Language",language);
         if(language.contentEquals("English")){
             setLocal(activity, "en");
@@ -143,19 +154,23 @@ public class Utility {
     }
 
     public <T> boolean catchResponse(Context context, Response<T> response) {
-        if (context == null) return false;
         if (response.message().equals("OK")) {
             Log.e("DATA UPLOADED","OK");
             return true;
         }
         else if (response.message().equals("UNAUTHORIZED")) {
+            if (context == null) return false;
             Toast.makeText(context,"Invalid username or password",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (response.message().equals("INTERNAL SERVER ERROR")) {
+
+            if (context == null) return false;
             Toast.makeText(context,"Server is unreachable",Toast.LENGTH_SHORT).show();
             return false;
         } else if (response.message().equals("FORBIDDEN")) {
+
+            if (context == null) return false;
             Toast.makeText(context,"Your session is expired. Please renew it by re-login",Toast.LENGTH_SHORT).show();
             return false;
         } else {
@@ -168,7 +183,8 @@ public class Utility {
         if (dataMessage.code == 200) {
             return true;
         } else {
-            Toast.makeText(context,"Something went wrong",Toast.LENGTH_SHORT).show();
+            if (context != null)
+                Toast.makeText(context,"Something went wrong",Toast.LENGTH_SHORT).show();
             return false;
         }
     }

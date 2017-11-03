@@ -10,17 +10,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
+import android.widget.TextView;
 
+import com.logisticsmarketplace.android.driver.API.API;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Active.OrderActive;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Done.OrderDone;
+import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderResponse;
+import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderStatus;
+import com.logisticsmarketplace.android.driver.Model.MyCookieJar;
 import com.logisticsmarketplace.android.driver.R;
+import com.logisticsmarketplace.android.driver.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener{
     ViewPager viewPager;
     TabHost tabHost;
+    int onprogress = 0,done = 0;
     View v;
     public ViewJobOrder() {
         // Required empty public constructor
@@ -34,6 +45,7 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
 
         initViewPager();
         initTabHost();
+        getCount();
 
         return v;
     }
@@ -111,6 +123,67 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
         Log.e("asd",viewPager.toString());
         viewPager.setCurrentItem(selectedItem);
     }
+
+    void getActiveOrder() {
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        String driver = Utility.utility.getLoggedName(this.getActivity());
+        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.ON_PROGRESS+"\"],[\"Job Order\",\"driver\",\"=\",\"" + driver + "\"]]");
+        callJO.enqueue(new Callback<JobOrderResponse>() {
+            @Override
+            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
+                    onprogress = response.body().jobOrders.size();
+                    SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
+                    String language = prefs.getString("language","Bahasa Indonesia");
+                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
+                    if(language.contentEquals("English")) {
+                        label.setText("On Progress (" + onprogress + ")");
+                    } else {
+                        label.setText("Dalam Proses (" + onprogress + ")");
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            }
+        });
+    }
+    void getDoneOrder() {
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        String driver = Utility.utility.getLoggedName(this.getActivity());
+        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.DONE+"\"],[\"Job Order\",\"driver\",\"=\",\"" + driver + "\"]]");
+        callJO.enqueue(new Callback<JobOrderResponse>() {
+            @Override
+            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
+                    done = response.body().jobOrders.size();
+                    SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
+                    String language = prefs.getString("language","Bahasa Indonesia");
+                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
+                    if(language.contentEquals("English")) {
+                        label.setText("Complete (" + done + ")");
+                    } else {
+                        label.setText("Selesai (" + done + ")");
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            }
+        });
+    }
+
+    void getCount() {
+        getActiveOrder();
+        getDoneOrder();
+    }
+
 
 
 }

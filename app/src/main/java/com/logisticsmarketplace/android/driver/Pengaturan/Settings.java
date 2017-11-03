@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.logisticsmarketplace.android.driver.GPSActivity.GPSServices;
+import com.logisticsmarketplace.android.driver.MainActivity;
 import com.logisticsmarketplace.android.driver.R;
 import com.logisticsmarketplace.android.driver.SplashScreen;
 import com.logisticsmarketplace.android.driver.Utility;
@@ -38,14 +40,14 @@ public class Settings extends Fragment {
         List<String> categories = new ArrayList<String>();
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-        String language = prefs.getString("language","English");
-        if(language.contentEquals("English")){
-            categories.add("English");
+        String language = prefs.getString("language","Bahasa Indonesia");
+        if(language.contentEquals("Bahasa Indonesia")){
             categories.add("Bahasa Indonesia");
+            categories.add("English");
         }
         else {
-            categories.add("Bahasa Indonesia");
             categories.add("English");
+            categories.add("Bahasa Indonesia");
         }
 
         spinner = (Spinner) v.findViewById(R.id.spinner);
@@ -56,9 +58,8 @@ public class Settings extends Fragment {
 
         List<String> categories2 = new ArrayList<String>();
         categories2.add("5 Menit");
+        categories2.add("15 Menit");
         categories2.add("30 Menit");
-        categories2.add("1 Jam");
-        categories2.add("2 Jam");
         spinner2 = (Spinner) v.findViewById(R.id.spinner2);
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this.getActivity(),
                 android.R.layout.simple_spinner_item, categories2);
@@ -79,6 +80,11 @@ public class Settings extends Fragment {
                 Utility.utility.savelanguage(getActivity(), bahasa);
                 getActivity().startActivity(new Intent(getActivity().getApplicationContext(),SplashScreen.class));
                 getActivity().finish();
+
+                String interval = spinner2.getSelectedItem().toString();
+                int intervalTime = Integer.parseInt(interval.replace(" Menit",""));
+                Utility.utility.saveBakgroundUpdate(this.getActivity(),intervalTime);
+                MainActivity.resetIntervalGPS();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

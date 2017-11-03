@@ -53,7 +53,7 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    Double lat=0.0, longi=0.0;
+    protected Double lat=0.0, longi=0.0;
     TelephonyManager mTelephoneManager;
     SignalListener mSignalListener;
     int mSignalStrength = 0;
@@ -93,11 +93,28 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
                 .build();
         GPSServices.mGoogleApiClient.connect();
     }
+
+    void resetIntervalGPS() {
+        long duration = Utility.utility.getBackgroundUpdate(this);
+        LocationServices.FusedLocationApi.removeLocationUpdates(GPSServices.mGoogleApiClient,this);
+        GPSServices.mLocationRequest = new LocationRequest();
+        GPSServices.mLocationRequest.setInterval(duration);
+        GPSServices.mLocationRequest.setFastestInterval(duration);
+        GPSServices.mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        if (GPSServices.mGoogleApiClient != null) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                LocationServices.FusedLocationApi.requestLocationUpdates(GPSServices.mGoogleApiClient, GPSServices.mLocationRequest, this);
+            }
+        }
+    }
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (GPSServices.mLocationRequest == null) {
             GPSServices.mLocationRequest = new LocationRequest();
-            long duration = 1000 * 60 * 5;
+            long duration = Utility.utility.getBackgroundUpdate(this);
             GPSServices.mLocationRequest.setInterval(duration);
             GPSServices.mLocationRequest.setFastestInterval(duration);
             GPSServices.mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
@@ -129,6 +146,7 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         lat=location.getLatitude();
         longi=location.getLongitude();
+
 
         Log.e("LATLONG",lat+","+longi);
         updateBackground();

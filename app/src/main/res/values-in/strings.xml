@@ -22,6 +22,7 @@
     <string name="dashboard">Beranda</string>
     <string name="dashboard_onprogress">Sudah Ditugaskan</string>
     <string name="dashboard_pending">Menunggu Konfirmasi</string>
+    <string name="dashboard_active_jo">Pekerjaan Aktif</string>
 
     <!--SETTINGS-->
     <string name="settings">Pengaturan</string>
@@ -46,6 +47,28 @@
 
     <!--DETAIL PESANAN-->
     <string name="dp">Detail Pesanan</string>
+    <string name="dpa">Detail Pesanan Aktif</string>
+    <string name="dpd">Detail Pesanan Selesai</string>
+
+    <string name="dp_vendorinfo">Informasi Penyedia Jasa</string>
+    <string name="dp_vendorname">Nama Penyedia Jasa</string>
+    <string name="dp_vendorcpname">Nama CP Penyedia Jasa</string>
+    <string name="dp_vendorcpphone">Telp CP Penyedia Jasa</string>
+
+    <string name="dp_principleinfo">Informasi Pengguna Jasa</string>
+    <string name="dp_principlename">Pengguna Jasa Name</string>
+    <string name="dp_principlecpname">Pengguna Jasa CP Name</string>
+    <string name="dp_principlecpphone">Pengguna Jasa CP Phone</string>
+
+    <string name="dp_cargoinfo">Informasi Muatan</string>
+    <string name="dp_estpick">Estimasi Tanggal Pengambilan</string>
+    <string name="dp_estdelivered">Estimasi Tanggal Diterima</string>
+    <string name="dp_estvolume">Estimasi Volume</string>
+    <string name="dp_cargotruck">Truk</string>
+    <string name="dp_cargotrucktype">Tipe Truck</string>
+    <string name="dp_cargodetails">Detail Muatan</string>
+    <string name="dp_cargonote">Catatan</string>
+
     <string name="dp_infobarang">Info Barang</string>
     <string name="dp_volume">Volume</string>
     <string name="dp_netweight">Berat Bersih</string>
@@ -148,6 +171,6 @@
     <string name="admin">Kontak Admin</string>
 
     <!--VESION-->
-    <string name="version">Versi 1.0.1</string>
+    <string name="version">Versi 1.1 build 1</string>
 
 </resources>

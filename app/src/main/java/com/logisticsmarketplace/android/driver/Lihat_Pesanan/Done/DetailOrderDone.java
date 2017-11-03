@@ -35,7 +35,7 @@ public class DetailOrderDone extends DetailOrder {
 
     @Override
     protected String getTitleString(String title) {
-        return "Detail Order Selesai";
+        return getString(R.string.dpd);
     }
 
     @Override

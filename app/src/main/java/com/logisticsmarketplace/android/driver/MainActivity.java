@@ -147,4 +147,8 @@ public class MainActivity extends GPSActivity
         displaySelectedScreen(id);
         return true;
     }
+
+    public static void resetIntervalGPS() {
+        resetIntervalGPS();
+    }
 }
