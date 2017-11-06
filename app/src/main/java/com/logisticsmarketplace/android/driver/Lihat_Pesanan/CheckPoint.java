@@ -206,8 +206,6 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
         if(data != null){
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -234,6 +232,7 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
     //API
     void updateStatus() {
         loading.setVisibility(View.VISIBLE);
+        klik.setEnabled(false);
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         JobOrderUpdateData jobOrderUpdateData = new JobOrderUpdateData();
@@ -258,6 +257,7 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
             @Override
             public void onResponse(Call<JobOrderUpdateCreation> call, Response<JobOrderUpdateCreation> response) {
                 loading.setVisibility(View.GONE);
+                klik.setEnabled(true);
                 if (Utility.utility.catchResponse(getApplicationContext(), response)) {
 
                     String updateJOID = response.body().data.id;
@@ -269,6 +269,7 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
             @Override
             public void onFailure(Call<JobOrderUpdateCreation> call, Throwable t) {
                 loading.setVisibility(View.GONE);
+                klik.setEnabled(true);
                 Utility.utility.showConnectivityUnstable(getApplicationContext());
             }
         });

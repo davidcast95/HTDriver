@@ -16,10 +16,29 @@ public class JobOrderData {
     public String etd = "";
     @SerializedName("expected_delivery")
     public String eta = "";
+
     @SerializedName("pick_location")
-    public String origin = "";
+    public String origin;
+    @SerializedName("kota_pengambilan")
+    public String origin_city;
+    @SerializedName("alamat_pengambilan")
+    public String origin_address;
+    @SerializedName("nama_gudang_pengambilan")
+    public String origin_warehouse;
+    @SerializedName("kode_distributor_pengambilan")
+    public String origin_code;
+
     @SerializedName("delivery_location")
-    public String destination = "";
+    public String destination;
+    @SerializedName("kota_pengiriman")
+    public String destination_city;
+    @SerializedName("alamat_pengiriman")
+    public String destination_address;
+    @SerializedName("nama_gudang_pengiriman")
+    public String destination_warehouse;
+    @SerializedName("kode_distributor_pengiriman")
+    public String destination_code;
+
     @SerializedName("vendor")
     public String vendor = "";
     @SerializedName("principle")

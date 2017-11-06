@@ -179,7 +179,7 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
         });
     }
 
-    void getCount() {
+    public void getCount() {
         getActiveOrder();
         getDoneOrder();
     }

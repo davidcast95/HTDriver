@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.logisticsmarketplace.android.driver.API.API;
+import com.logisticsmarketplace.android.driver.Lihat_Pesanan.ViewJobOrder;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderData;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderResponse;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderStatus;
@@ -51,7 +52,7 @@ public class OrderDone extends Fragment {
         loading=(ProgressBar)v.findViewById(R.id.loading);
         noData=(TextView) v.findViewById(R.id.nodata);
         noData.setVisibility(View.GONE);
-        getPendingOrder();
+        getDoneOrder();
 
         mSwipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
 
@@ -65,6 +66,12 @@ public class OrderDone extends Fragment {
         return v;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) {
+            refreshItems();
+        }
+    }
 
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener(){
         public void onItemClick(AdapterView<?> parent,
@@ -73,12 +80,14 @@ public class OrderDone extends Fragment {
             Intent goDetail = new Intent(getActivity().getApplicationContext(),DetailOrderDone.class);
             goDetail.putExtra("index", position);
             goDetail.putExtra("from","OrderDone");
-            startActivity(goDetail);
+            startActivityForResult(goDetail,100);
         }
     };
 
     void refreshItems() {
-        getPendingOrder();
+        getDoneOrder();
+        ViewJobOrder viewJobOrder = (ViewJobOrder)getParentFragment();
+        viewJobOrder.getCount();
     }
 
     void onItemsLoadComplete() {
@@ -86,7 +95,9 @@ public class OrderDone extends Fragment {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    void getPendingOrder() {
+    void getDoneOrder() {
+        loading.setVisibility(View.VISIBLE);
+        lv.setVisibility(View.GONE);
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String driverName = Utility.utility.getLoggedName(getActivity());
@@ -95,6 +106,7 @@ public class OrderDone extends Fragment {
             @Override
             public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
                 Log.e("asd", response.message());
+                loading.setVisibility(View.GONE);
                 if (Utility.utility.catchResponse(getActivity().getApplicationContext(),response)) {
                     JobOrderResponse jobOrderResponse = response.body();
                     jobOrders = jobOrderResponse.jobOrders;
@@ -107,7 +119,6 @@ public class OrderDone extends Fragment {
                         lv.setAdapter(onProgressOrderAdapter);
                         lv.setVisibility(View.VISIBLE);
                     }
-                    loading.setVisibility(View.GONE);
                     onItemsLoadComplete();
                 } else {
                     Utility.utility.showConnectivityUnstable(getActivity().getApplicationContext());

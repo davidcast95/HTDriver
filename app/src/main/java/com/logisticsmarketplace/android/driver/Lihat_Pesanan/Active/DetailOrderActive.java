@@ -43,4 +43,10 @@ public class DetailOrderActive extends DetailOrder {
     protected Boolean hasOptionMenu(Boolean has) {
         return true;
     }
+
+    @Override
+    protected int getMenuType() {
+        return R.menu.active_track_titlebar;
+    }
 }
+

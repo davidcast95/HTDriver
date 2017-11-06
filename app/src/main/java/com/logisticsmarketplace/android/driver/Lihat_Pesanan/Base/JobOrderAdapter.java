@@ -8,7 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderData;
+import com.logisticsmarketplace.android.driver.Model.Location.Location;
 import com.logisticsmarketplace.android.driver.R;
+import com.logisticsmarketplace.android.driver.Utility;
 
 import java.util.List;
 
@@ -40,8 +42,9 @@ public class JobOrderAdapter extends ArrayAdapter<JobOrderData> {
 
         ref.setText("Ref No : " + list.get(position).ref);
         joid.setText(list.get(position).joid);
-        origin.setText(list.get(position).origin);
-        destination.setText(list.get(position).destination);
+        JobOrderData jobOrder = list.get(position);
+        origin.setText(Utility.utility.formatLocation(new Location(jobOrder.origin_code,jobOrder.origin,jobOrder.origin_city,jobOrder.origin_address,jobOrder.origin_warehouse,"")));
+        destination.setText(Utility.utility.formatLocation(new Location(jobOrder.destination_code,jobOrder.destination,jobOrder.destination_city,jobOrder.destination_address,jobOrder.destination_warehouse,"")));
 
 
         return view;

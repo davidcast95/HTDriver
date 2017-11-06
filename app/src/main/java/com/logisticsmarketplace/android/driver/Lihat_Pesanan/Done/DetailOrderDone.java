@@ -40,6 +40,11 @@ public class DetailOrderDone extends DetailOrder {
 
     @Override
     protected Boolean hasOptionMenu(Boolean has) {
-        return false;
+        return true;
+    }
+
+    @Override
+    protected int getMenuType() {
+        return R.menu.done_track_titlebar;
     }
 }

@@ -3,7 +3,6 @@ package com.logisticsmarketplace.android.driver.Lihat_Pesanan.Base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +16,6 @@ import com.logisticsmarketplace.android.driver.API.API;
 import com.logisticsmarketplace.android.driver.Dashboard;
 import com.logisticsmarketplace.android.driver.GPSActivity.GPSActivity;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Active.OrderActive;
-import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Active.Problem;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.CheckPoint;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Done.OrderDone;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.TrackHistory;
@@ -25,6 +23,7 @@ import com.logisticsmarketplace.android.driver.Maps.TrackOrderMaps;
 import com.logisticsmarketplace.android.driver.Model.JobOrder.JobOrderData;
 import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateData;
 import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateResponse;
+import com.logisticsmarketplace.android.driver.Model.Location.Location;
 import com.logisticsmarketplace.android.driver.Model.MyCookieJar;
 import com.logisticsmarketplace.android.driver.R;
 import com.logisticsmarketplace.android.driver.Utility;
@@ -72,7 +71,7 @@ public class DetailOrder extends GPSActivity {
             }
         } else if (from.equals("OrderDone")) {
             if (OrderDone.jobOrders.get(index) != null) {
-                jobOrder = OrderActive.jobOrders.get(index);
+                jobOrder = OrderDone.jobOrders.get(index);
 
             }
         } else {
@@ -101,8 +100,8 @@ public class DetailOrder extends GPSActivity {
             if (jobOrder.ref == null) jobOrder.ref = "";
             ref.setText("Ref No : " + jobOrder.ref);
             joid.setText(jobOrder.joid);
-            origin.setText(jobOrder.origin);
-            destination.setText(jobOrder.destination);
+            origin.setText(Utility.utility.formatLocation(new Location(jobOrder.origin_code,jobOrder.origin,jobOrder.origin_city,jobOrder.origin_address,jobOrder.origin_warehouse,"")));
+            destination.setText(Utility.utility.formatLocation(new Location(jobOrder.destination_code,jobOrder.destination,jobOrder.destination_city,jobOrder.destination_address,jobOrder.destination_warehouse,"")));
             vendor_name.setText(jobOrder.vendor);
             vendor_cp_name.setText(jobOrder.vendor_cp_name);
             vendor_cp_phone.setText(jobOrder.vendor_cp_phone);
@@ -125,7 +124,7 @@ public class DetailOrder extends GPSActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.track_titlebar, menu);
+        getMenuInflater().inflate(getMenuType(), menu);
         return true;
     }
 
@@ -170,6 +169,10 @@ public class DetailOrder extends GPSActivity {
                 getLastUpdate();
             }
         }
+    }
+
+    protected int getMenuType() {
+        return R.menu.active_track_titlebar;
     }
 
     //API

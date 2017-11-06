@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.logisticsmarketplace.android.driver.API.API;
 import com.logisticsmarketplace.android.driver.Model.Default.DataMessage;
+import com.logisticsmarketplace.android.driver.Model.Location.Location;
 import com.logisticsmarketplace.android.driver.Model.MyCookieJar;
 import com.google.gson.Gson;
 
@@ -233,5 +234,8 @@ public class Utility {
                 activity.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
             }
         });
+    }
+    public String formatLocation(Location location) {
+        return location.warehouse + "("+ location.code +") - " + location.address + ", " + location.city;
     }
 }

@@ -65,7 +65,7 @@ public interface API {
     @PUT("/api/resource/Job Order/{id}")
     Call<JSONObject> updateJobOrder(@Path("id") String id, @Body HashMap<String, String> change);
 
-    @GET("/api/resource/Job Order?fields=[\"reference\",\"status\",\"name\", \"principle\",\"vendor\",\"pick_location\",\"delivery_location\",\"nama_principle_cp\",\"telp_principle_cp\",\"nama_vendor_cp\",\"telp_vendor_cp\",\"pick_date\",\"expected_delivery\",\"goods_information\",\"notes\",\"accept_date\",\"suggest_truck_type\",\"strict\",\"estimate_volume\",\"truck\",\"truck_type\",\"truck_volume\",\"driver\"]")
+    @GET("/api/resource/Job Order?fields=[\"reference\",\"status\",\"name\", \"principle\",\"vendor\",\"pick_location\",\"delivery_location\",\"nama_principle_cp\",\"telp_principle_cp\",\"nama_vendor_cp\",\"telp_vendor_cp\",\"pick_date\",\"expected_delivery\",\"goods_information\",\"notes\",\"accept_date\",\"suggest_truck_type\",\"strict\",\"estimate_volume\",\"truck\",\"truck_type\",\"truck_volume\",\"driver\",\"kota_pengambilan\",\"alamat_pengambilan\",\"kode_distributor_pengambilan\",\"nama_gudang_pengambilan\",\"kota_pengiriman\",\"alamat_pengiriman\",\"kode_distributor_pengiriman\",\"nama_gudang_pengiriman\"]")
     Call<JobOrderResponse> getJobOrder(@Query("filters") String filters);
 
     @POST("/api/resource/Job Order")
