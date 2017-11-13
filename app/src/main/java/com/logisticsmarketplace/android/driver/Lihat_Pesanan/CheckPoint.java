@@ -223,11 +223,12 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
 
     void updateStateUI() {
         String notes = notesEditText.getText().toString();
-        if (notes.equals("")) {
-            Toast.makeText(getApplicationContext(),"Notes cannot be empty",Toast.LENGTH_SHORT).show();
-        } else {
-            updateStatus();
-        }
+//        if (notes.equals("")) {
+//            Toast.makeText(getApplicationContext(),"Notes cannot be empty",Toast.LENGTH_SHORT).show();
+//        } else {
+//
+//        }
+        updateStatus();
     }
     //API
     void updateStatus() {
@@ -248,7 +249,7 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
         String status = spinner.getSelectedItem().toString();
         jobOrderUpdateData.status = status;
 
-        if (status.equals("Selesai")) {
+        if (status.equals("4. Proses bongkar Selesai")) {
             updateJOStatus();
         }
         String a = new Gson().toJson(jobOrderUpdateData);
@@ -338,36 +339,33 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
         });
     }
     void updateDriver() {
-//        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
-//        API api = Utility.utility.getAPIWithCookie(cookieJar);
-//        HashMap<String,String> statusJSON = new HashMap<>();
-//        statusJSON.put("status", DriverStatus.AVAILABLE);
-//        String a = new Gson().toJson(statusJSON);
-//        Call<JSONObject> callUpdateJO = api.updateDriver(driver, statusJSON);
-//        callUpdateJO.enqueue(new Callback<JSONObject>() {
-//            @Override
-//            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-//                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JSONObject> call, Throwable t) {
-//                Utility.utility.showConnectivityUnstable(getApplicationContext());
-//            }
-//        });
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        HashMap<String,String> statusJSON = new HashMap<>();
+        statusJSON.put("status", DriverStatus.AVAILABLE);
+        String a = new Gson().toJson(statusJSON);
+        Call<JSONObject> callUpdateJO = api.updateDriver(driver, statusJSON);
+        callUpdateJO.enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+                Utility.utility.showConnectivityUnstable(getApplicationContext());
+            }
+        });
     }
 
 
     public void getNextStage() {
-        categories.add("Update Lokasi");
-        categories.add("Proses Muat");
-        categories.add("Proses Bongkar");
-        categories.add("Proses Timbang");
-        categories.add("Menginap");
-        categories.add("Tertahan");
-        categories.add("Selesai");
+        categories.add("1. Tiba di Lokasi Muat");
+        categories.add("2. Proses Muat Selesai");
+        categories.add("3. Tiba di lokasi bongkar");
+        categories.add("4. Proses bongkar Selesai");
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);

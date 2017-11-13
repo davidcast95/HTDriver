@@ -53,7 +53,6 @@ public class OrderActive extends Fragment {
         loading=(ProgressBar)v.findViewById(R.id.loading);
         noData = (TextView)v.findViewById(R.id.nodata);
         noData.setVisibility(View.GONE);
-        getActiveOrder();
 
         mSwipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
 
@@ -65,6 +64,12 @@ public class OrderActive extends Fragment {
         });
 
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActiveOrder();
     }
 
     @Override

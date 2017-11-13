@@ -63,6 +63,7 @@ public class TrackHistoryAdapter extends ArrayAdapter<JobOrderUpdateData> {
             public void onClick(View view) {
                 if (latitude!= null || longitude!=null){
                     Intent maps = new Intent(getContext(), TrackOrderMaps.class);
+                    String lo = list.get(position).longitude, lat = list.get(position).latitude;
                     maps.putExtra("longitude", list.get(position).longitude );
                     maps.putExtra("latitude", list.get(position).latitude );
 

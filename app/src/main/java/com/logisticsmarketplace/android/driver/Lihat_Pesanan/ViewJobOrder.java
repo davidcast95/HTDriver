@@ -3,6 +3,7 @@ package com.logisticsmarketplace.android.driver.Lihat_Pesanan;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -45,9 +46,14 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
 
         initViewPager();
         initTabHost();
-        getCount();
 
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getCount();
     }
 
     private void initTabHost() {
@@ -55,7 +61,7 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
         tabHost.setup();
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-        String language = prefs.getString("language","English");
+        String language = prefs.getString("language","Bahasa Indonesia");
         String[] tabs = new String[2];
         if(language.contentEquals("English")){
             tabs[0]="Active";

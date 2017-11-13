@@ -59,7 +59,6 @@ public class Dashboard extends Fragment {
         lv.setVisibility(View.INVISIBLE);
         loading=(ProgressBar)v.findViewById(R.id.loading);
         mSwipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
-        getOnProgressOrder();
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -70,6 +69,11 @@ public class Dashboard extends Fragment {
         return v;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getOnProgressOrder();
+    }
 
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener(){
         public void onItemClick(AdapterView<?> parent,

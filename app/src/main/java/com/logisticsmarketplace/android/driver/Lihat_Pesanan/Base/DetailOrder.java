@@ -100,8 +100,8 @@ public class DetailOrder extends GPSActivity {
             if (jobOrder.ref == null) jobOrder.ref = "";
             ref.setText("Ref No : " + jobOrder.ref);
             joid.setText(jobOrder.joid);
-            origin.setText(Utility.utility.formatLocation(new Location(jobOrder.origin_code,jobOrder.origin,jobOrder.origin_city,jobOrder.origin_address,jobOrder.origin_warehouse,"")));
-            destination.setText(Utility.utility.formatLocation(new Location(jobOrder.destination_code,jobOrder.destination,jobOrder.destination_city,jobOrder.destination_address,jobOrder.destination_warehouse,"")));
+            origin.setText(Utility.utility.formatLocation(new Location(jobOrder.origin_code,jobOrder.origin,jobOrder.origin_city,jobOrder.origin_address,jobOrder.origin_warehouse,"","")));
+            destination.setText(Utility.utility.formatLocation(new Location(jobOrder.destination_code,jobOrder.destination,jobOrder.destination_city,jobOrder.destination_address,jobOrder.destination_warehouse,"","")));
             vendor_name.setText(jobOrder.vendor);
             vendor_cp_name.setText(jobOrder.vendor_cp_name);
             vendor_cp_phone.setText(jobOrder.vendor_cp_phone);
@@ -119,6 +119,11 @@ public class DetailOrder extends GPSActivity {
             cargoNote.setText(jobOrder.notes);
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         getLastUpdate();
     }
 
@@ -135,8 +140,8 @@ public class DetailOrder extends GPSActivity {
                 case R.id.action_history:
                     Intent intent = new Intent(this, TrackHistory.class);
                     intent.putExtra("joid", jobOrder.joid);
-                    intent.putExtra("origin", jobOrder.origin);
-                    intent.putExtra("destination", jobOrder.destination);
+                    intent.putExtra("destination", Utility.utility.formatLocation(new Location(jobOrder.destination_code,jobOrder.destination,jobOrder.destination_city,jobOrder.destination_address,jobOrder.destination_warehouse,"","")));
+                    intent.putExtra("origin", Utility.utility.formatLocation(new Location(jobOrder.origin_code,jobOrder.origin,jobOrder.origin_city,jobOrder.origin_address,jobOrder.origin_warehouse,"","")));
                     startActivity(intent);
                     break;
                 case R.id.action_cekpoint:
@@ -179,7 +184,7 @@ public class DetailOrder extends GPSActivity {
     void getLastUpdate() {
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
         API api = Utility.utility.getAPIWithCookie(cookieJar);
-        Call<JobOrderUpdateResponse> callGetJOUpdate = api.getJOUpdate("[[\"Job Order Update\",\"job_order\",\"=\",\""+jobOrder.joid+"\"]]");
+        Call<JobOrderUpdateResponse> callGetJOUpdate = api.getJOUpdate("[[\"Job Order Update\",\"job_order\",\"=\",\""+jobOrder.joid+"\"]]","10");
         callGetJOUpdate.enqueue(new Callback<JobOrderUpdateResponse>() {
             @Override
             public void onResponse(Call<JobOrderUpdateResponse> call, Response<JobOrderUpdateResponse> response) {
@@ -201,8 +206,6 @@ public class DetailOrder extends GPSActivity {
                                     Intent maps = new Intent(getApplicationContext(), TrackOrderMaps.class);
                                     maps.putExtra("longitude", longitude );
                                     maps.putExtra("latitude", latitude );
-                                    Log.e("LAT",latitude+"");
-                                    Log.e("LONG",longitude+"");
                                     maps.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(maps);
                                 }

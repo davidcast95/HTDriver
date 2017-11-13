@@ -63,7 +63,7 @@ public class Utility {
     public int getBackgroundUpdate(Activity activity) {
         SharedPreferences prefs1 = activity.getSharedPreferences("GlobalSettings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs1.edit();
-        return prefs1.getInt("intervalGPS",5);
+        return prefs1.getInt("intervalGPS",5000);
     }
     public void getLanguage(Activity activity){
         SharedPreferences prefs = activity.getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
@@ -155,21 +155,20 @@ public class Utility {
     }
 
     public <T> boolean catchResponse(Context context, Response<T> response) {
-        if (response.message().equals("OK")) {
+        if (response.code() == 200) {
             Log.e("DATA UPLOADED","OK");
             return true;
         }
-        else if (response.message().equals("UNAUTHORIZED")) {
+        else if (response.code() == 401) {
             if (context == null) return false;
             Toast.makeText(context,"Invalid username or password",Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (response.message().equals("INTERNAL SERVER ERROR")) {
-
+        else if (response.code() == 500 || response.code() == 417) {
             if (context == null) return false;
             Toast.makeText(context,"Server is unreachable",Toast.LENGTH_SHORT).show();
             return false;
-        } else if (response.message().equals("FORBIDDEN")) {
+        } else if (response.message().equals("Forbidden")) {
 
             if (context == null) return false;
             Toast.makeText(context,"Your session is expired. Please renew it by re-login",Toast.LENGTH_SHORT).show();
@@ -191,10 +190,12 @@ public class Utility {
     }
 
     public void showConnectivityUnstable(Context context) {
+        if (context == null) return;
         Toast.makeText(context,"Connectivity unstable",Toast.LENGTH_SHORT).show();
     }
 
     public void showConnectivityWithError(Context context) {
+        if (context == null) return;
         Toast.makeText(context,"No network connection",Toast.LENGTH_SHORT).show();
     }
 

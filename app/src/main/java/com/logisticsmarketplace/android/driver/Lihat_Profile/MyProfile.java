@@ -37,8 +37,13 @@ public class MyProfile extends Fragment {
         emailTextEdit = (TextView)v.findViewById(R.id.email);
         addressTextEdit = (TextView)v.findViewById(R.id.address);
 
-        getProfile();
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getProfile();
     }
 
     //API Connectivity

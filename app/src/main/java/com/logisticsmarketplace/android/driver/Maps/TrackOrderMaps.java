@@ -46,8 +46,8 @@ public class TrackOrderMaps extends AppCompatActivity implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
         setTitle(R.string.maps);
         Intent intent = getIntent();
-        lat = intent.getDoubleExtra("latitude", 0);
-        longi = intent.getDoubleExtra("longitude", 0);
+        lat = Double.valueOf(intent.getStringExtra("latitude"));
+        longi = Double.valueOf(intent.getStringExtra("longitude"));
         Log.e("LAT",lat+"");
         Log.e("LONG",longi+"");
 

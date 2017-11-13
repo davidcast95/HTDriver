@@ -41,7 +41,7 @@ public interface API {
 
     //JOB ORDER UPDATE
     @GET("/api/resource/Job Order Update?fields=[\"name\",\"waktu\",\"lo\",\"lat\",\"note\",\"job_order\",\"docstatus\",\"status\",\"vendor\",\"principle\"]")
-    Call<JobOrderUpdateResponse> getJOUpdate(@Query("filters") String filters);
+    Call<JobOrderUpdateResponse> getJOUpdate(@Query("filters") String filters, @Query("limit_page_length") String limit);
     @POST("/api/resource/Job Order Update")
     Call<JobOrderUpdateCreation> insertUpdateJO(@Body JobOrderUpdateData jobOrderUpdateData);
 

@@ -27,6 +27,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.gson.Gson;
 import com.logisticsmarketplace.android.driver.API.API;
 import com.logisticsmarketplace.android.driver.Maps.DirectionFinderListener;
 import com.logisticsmarketplace.android.driver.Maps.Route;
@@ -245,13 +246,12 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         backgroundData.battery = batteryLevel + "";
         backgroundData.signal = mSignalStrength + "";
         backgroundData.status_gps = "On";
+        String a = new Gson().toJson(backgroundData);
         Call<ResponseBody> backgroundCall = api.updateBackground(backgroundData);
         backgroundCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
-                    Log.e("BACKGROUND","udpated");
-                }
+
             }
 
             @Override
