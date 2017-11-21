@@ -52,7 +52,7 @@ public class Settings extends Fragment {
 
         spinner = (Spinner) v.findViewById(R.id.spinner);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_spinner_item, categories);
+                R.layout.spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(dataAdapter);
 
@@ -62,7 +62,7 @@ public class Settings extends Fragment {
         categories2.add("30 Menit");
         spinner2 = (Spinner) v.findViewById(R.id.spinner2);
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_spinner_item, categories2);
+                R.layout.spinner_item, categories2);
         dataAdapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner2.setAdapter(dataAdapter2);
 

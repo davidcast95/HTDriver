@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
-                android:textColor="@color/White"/>
+                android:textColor="@color/Black"/>
             <View
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="20dp"
@@ -50,8 +50,8 @@
             android:text=""
             android:singleLine="true"
             android:layout_gravity="center"
-            android:textColor="@color/White"
-            android:textColorHint="@color/White"/>
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Grey"/>
         <EditText
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -59,8 +59,8 @@
             android:id="@+id/password"
             android:text=""
             android:layout_gravity="center"
-            android:textColor="@color/White"
-            android:textColorHint="@color/White"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Grey"
             android:inputType="textPassword"/>
         <ImageButton
             android:layout_width="150dp"

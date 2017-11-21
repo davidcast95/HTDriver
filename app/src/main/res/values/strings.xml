@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Driver DigiTruck</string>
+    <string name="app_name">Digitruck Driver</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -64,6 +64,7 @@
     <string name="dp_estpick">Estimated Pick Date</string>
     <string name="dp_estdelivered">Estimated Delivered Date</string>
     <string name="dp_estvolume">Estimated Volume</string>
+    <string name="dp_hullno">Hull No</string>
     <string name="dp_cargotruck">Truck</string>
     <string name="dp_cargotrucktype">Truck Type</string>
     <string name="dp_cargodetails">Cargo Details</string>
@@ -87,6 +88,7 @@
     <string name="dp_totalbiaya">Total Cost</string>
     <string name="dp_pesanberita">Would you like to receive this order ?</string>
     <string name="dp_drivername">Driver Name</string>
+    <string name="dp_driverphone">Driver Phone</string>
     <string name="dp_trucknumber">Truck Number</string>
     <string name="dp_trucktype">Truck Type</string>
     <string name="dp_update">Update</string>
@@ -171,6 +173,6 @@
     <string name="admin">Message Admin</string>
 
     <!--VESION-->
-    <string name="version">Version 1.1 build 1</string>
+    <string name="version">Version 1.1.2 build 3</string>
 
 </resources>

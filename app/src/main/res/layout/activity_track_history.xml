@@ -161,6 +161,15 @@
             <!--</LinearLayout>-->
             <!--</LinearLayout>-->
             <!--</LinearLayout>-->
+
+            <TextView
+                android:id="@+id/no_data"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nodata"
+                android:textAlignment="center"
+                android:visibility="gone"/>
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

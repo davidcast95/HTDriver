@@ -211,9 +211,9 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 //            image1.setImageBitmap(imageBitmap);
             bufferListImages.add(imageBitmap);
-            if(bufferListImages.size()==5){
-                klik.setVisibility(View.INVISIBLE);
-            }
+//            if(bufferListImages.size()==5){
+//                klik.setVisibility(View.INVISIBLE);
+//            }
 
             checkPointAdapter = new CheckPointAdapter(getApplicationContext(),R.layout.activity_check_point_photo_list, bufferListImages);
             gridView.setAdapter(checkPointAdapter);
@@ -249,7 +249,7 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
         String status = spinner.getSelectedItem().toString();
         jobOrderUpdateData.status = status;
 
-        if (status.equals("4. Proses bongkar Selesai")) {
+        if (status.equals("6. Pekerjaan Selesai")) {
             updateJOStatus();
         }
         String a = new Gson().toJson(jobOrderUpdateData);
@@ -362,12 +362,15 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
 
 
     public void getNextStage() {
-        categories.add("1. Tiba di Lokasi Muat");
-        categories.add("2. Proses Muat Selesai");
-        categories.add("3. Tiba di lokasi bongkar");
-        categories.add("4. Proses bongkar Selesai");
+        categories.add("1. Menuju ke Lokasi Muat");
+        categories.add("2. Tiba di Lokasi Muat");
+        categories.add("3. Proses Muat Selesai");
+        categories.add("4. Tiba di Lokasi Bongkar");
+        categories.add("5. Proses Bongkar Selesai");
+        categories.add("6. Pekerjaan Selesai");
+
         spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(dataAdapter);
     }

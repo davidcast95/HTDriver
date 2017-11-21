@@ -25,7 +25,7 @@
                 android:layout_height="200dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
@@ -77,15 +77,6 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/checkpoint_picture"
                     android:textStyle="bold"/>
-
-                <GridView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:columnWidth="120dp"
-                    android:numColumns="auto_fit"
-                    android:id="@+id/photo">
-
-                </GridView>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,6 +86,16 @@
                     android:layout_gravity="center"
                     android:textColor="@color/White"
                     android:background="@color/colorPrimary"/>
+                <GridView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnWidth="120dp"
+                    android:numColumns="auto_fit"
+                    android:id="@+id/photo">
+
+                </GridView>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -13,14 +13,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.logisticsmarketplace.android.driver.API.API;
+import com.logisticsmarketplace.android.driver.Dashboard;
 import com.logisticsmarketplace.android.driver.GPSActivity.GPSActivity;
 import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Active.DetailOrderActive;
+import com.logisticsmarketplace.android.driver.Lihat_Pesanan.Done.DetailOrderDone;
 import com.logisticsmarketplace.android.driver.Model.History.HistoryHistory;
 import com.logisticsmarketplace.android.driver.Model.History.HistoryResponse;
+import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateData;
 import com.logisticsmarketplace.android.driver.Model.MyCookieJar;
 import com.logisticsmarketplace.android.driver.R;
 import com.logisticsmarketplace.android.driver.Utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,6 +38,9 @@ public class TrackHistory extends GPSActivity {
     TrackHistoryAdapter trackHistoryAdapter;
     ProgressBar loading;
     LinearLayout layout;
+    TextView nodata;
+
+    List<JobOrderUpdateData> jobOrderUpdateDataList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,12 @@ public class TrackHistory extends GPSActivity {
         super.onCreate(savedInstanceState);
         setTitle(R.string.tracking_history);
         setContentView(R.layout.activity_track_history);
+
+        nodata = (TextView) findViewById(R.id.no_data);
+        nodata.setVisibility(View.GONE);
+        loading=(ProgressBar)findViewById(R.id.loading);
+        lv=(ListView) findViewById(R.id.historylist);
+        layout=(LinearLayout)findViewById(R.id.layout);
 
         Intent intent = getIntent();
         joid = intent.getStringExtra("joid");
@@ -56,13 +69,22 @@ public class TrackHistory extends GPSActivity {
         TextView locationto = (TextView)findViewById(R.id.locationto);
         locationto.setText(to);
 
-        loading=(ProgressBar)findViewById(R.id.loading);
-        lv=(ListView) findViewById(R.id.historylist);
-        layout=(LinearLayout)findViewById(R.id.layout);
-        loading.setVisibility(View.GONE);
+        from = getIntent().getStringExtra("from");
 
-        trackHistoryAdapter = new TrackHistoryAdapter(getApplicationContext(),R.layout.activity_track_history_list, DetailOrderActive.jobOrderUpdates);
-        lv.setAdapter(trackHistoryAdapter);
+        if (from.equals("OrderActive") || from.equals("Dashboard")) {
+            jobOrderUpdateDataList = DetailOrderActive.jobOrderUpdates;
+        } else if (from.equals("OrderDone")) {
+            jobOrderUpdateDataList = DetailOrderDone.jobOrderUpdates;
+        }
+
+        if (jobOrderUpdateDataList.size() > 0) {
+
+            trackHistoryAdapter = new TrackHistoryAdapter(getApplicationContext(), R.layout.activity_track_history_list, jobOrderUpdateDataList);
+            lv.setAdapter(trackHistoryAdapter);
+        } else {
+            nodata.setVisibility(View.VISIBLE);
+            lv.setVisibility(View.GONE);
+        }
         layout.setVisibility(View.VISIBLE);
         loading.setVisibility(View.INVISIBLE);
 

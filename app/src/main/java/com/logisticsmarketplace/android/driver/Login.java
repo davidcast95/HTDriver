@@ -13,7 +13,11 @@ import android.widget.Toast;
 
 import com.logisticsmarketplace.android.driver.API.API;
 import com.logisticsmarketplace.android.driver.Model.Login.DriverLogin;
+import com.logisticsmarketplace.android.driver.Model.Login.LoginUserPermission;
+import com.logisticsmarketplace.android.driver.Model.Login.LoginUserPermissionResponse;
 import com.logisticsmarketplace.android.driver.Model.MyCookieJar;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,13 +65,15 @@ public class Login extends AppCompatActivity {
             public void onResponse(Call<DriverLogin> call, Response<DriverLogin> response) {
 
                 loading.setVisibility(View.GONE);
-                if(Utility.utility.catchResponse(getApplicationContext(), response)) {
-                    DriverLogin driverLogin = response.body();
+                if(response.code() == 200) {
                     Utility.utility.saveLoggedName(user, activity);
 
                     Utility.utility.saveCookieJarToPreference(cookieJar, activity);
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
+//                    checkPermission();
+                } else {
+                    Toast.makeText(getApplicationContext(),"Username or password is invalid",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -75,6 +81,31 @@ public class Login extends AppCompatActivity {
             public void onFailure(Call<DriverLogin> call, Throwable throwable) {
                 Utility.utility.showConnectivityWithError(getApplicationContext());
                 loading.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    void checkPermission() {
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        Call<LoginUserPermissionResponse> loginUserPermissionResponseCall = api.loginPermission("[[\"User Permission\",\"allow\",\"=\",\"Driver\"]]");
+        final Activity thisActivity = this;
+        loginUserPermissionResponseCall.enqueue(new Callback<LoginUserPermissionResponse>() {
+            @Override
+            public void onResponse(Call<LoginUserPermissionResponse> call, Response<LoginUserPermissionResponse> response) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                    List<LoginUserPermission> data = response.body().data;
+                    if (data.size() > 0) {
+
+                    } else {
+                        Toast.makeText(getApplicationContext(),"Username or password is invalid",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginUserPermissionResponse> call, Throwable t) {
+                Utility.utility.showConnectivityUnstable(getApplicationContext());
             }
         });
     }

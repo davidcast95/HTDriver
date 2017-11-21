@@ -15,6 +15,7 @@ import com.logisticsmarketplace.android.driver.Maps.TrackOrderMaps;
 import com.logisticsmarketplace.android.driver.Model.History.HistoryHistory;
 import com.logisticsmarketplace.android.driver.Model.JobOrderUpdate.JobOrderUpdateData;
 import com.logisticsmarketplace.android.driver.R;
+import com.logisticsmarketplace.android.driver.Utility;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class TrackHistoryAdapter extends ArrayAdapter<JobOrderUpdateData> {
         TextView notes = (TextView) view.findViewById(R.id.notes);
 
         JobOrderUpdateData productList = list.get(position);
-        Tanggal2.setText(list.get(position).time);
+        Tanggal2.setText(Utility.formatDateFromstring(Utility.dateDBLongFormat,Utility.LONG_DATE_TIME_FORMAT, list.get(position).time));
         state.setText(list.get(position).status);
         notes.setText(list.get(position).note);
         latitude= Double.parseDouble (list.get(position).latitude);
@@ -64,8 +65,9 @@ public class TrackHistoryAdapter extends ArrayAdapter<JobOrderUpdateData> {
                 if (latitude!= null || longitude!=null){
                     Intent maps = new Intent(getContext(), TrackOrderMaps.class);
                     String lo = list.get(position).longitude, lat = list.get(position).latitude;
-                    maps.putExtra("longitude", list.get(position).longitude );
-                    maps.putExtra("latitude", list.get(position).latitude );
+
+                    maps.putExtra("longitude", Double.valueOf(list.get(position).longitude ));
+                    maps.putExtra("latitude", Double.valueOf(list.get(position).latitude ));
 
                     maps.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getContext().startActivity(maps);
