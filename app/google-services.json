@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "682374413078",
+    "firebase_url": "https://digitruk-driver.firebaseio.com",
+    "project_id": "digitruk-driver",
+    "storage_bucket": "digitruk-driver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682374413078:android:b5f7a6a4c402ba58",
+        "android_client_info": {
+          "package_name": "huang.android.logistic_driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682374413078-bkmuvkrekgid5hlib7vesv699jglhg5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo8esRFIC9tseu9Cq5yrd7lBgfLTrNS5g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.logisticsmarketplace.android.driver.Dashboard">
+    tools:context="huang.android.logistic_driver.Dashboard">
 
     <LinearLayout
         android:orientation="vertical"

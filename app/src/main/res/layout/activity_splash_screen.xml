@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splashdriver"
-    tools:context="com.logisticsmarketplace.android.driver.SplashScreen">
+    tools:context="huang.android.logistic_driver.SplashScreen">
 
 </android.support.constraint.ConstraintLayout>
