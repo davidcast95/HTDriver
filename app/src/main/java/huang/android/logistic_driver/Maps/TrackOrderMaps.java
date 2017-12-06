@@ -25,7 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrackOrderMaps extends AppCompatActivity implements OnMapReadyCallback, DirectionFinderListener {
+public class TrackOrderMaps extends GPSActivity implements OnMapReadyCallback, DirectionFinderListener {
 
     private GoogleMap mMap;
     private List<Marker> originMarkers = new ArrayList<>();

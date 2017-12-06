@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import huang.android.logistic_driver.API.API;
+import huang.android.logistic_driver.GPSActivity.GPSActivity;
 import huang.android.logistic_driver.MainActivity;
 import huang.android.logistic_driver.Maps.DirectionFinderListener;
 import huang.android.logistic_driver.Maps.Route;
@@ -79,7 +80,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback, DirectionFinderListener,
+public class CheckPoint extends GPSActivity implements OnMapReadyCallback, DirectionFinderListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener{
@@ -163,7 +164,7 @@ public class CheckPoint extends AppCompatActivity implements OnMapReadyCallback,
                         REQUEST_CAMERA);
             }
         } else {
-            Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE_SECURE);
+            Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(camera,0);
         }
 

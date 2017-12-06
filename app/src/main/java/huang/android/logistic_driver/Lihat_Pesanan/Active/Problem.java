@@ -8,10 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import huang.android.logistic_driver.GPSActivity.GPSActivity;
 import huang.android.logistic_driver.MainActivity;
 import huang.android.logistic_driver.R;
 
-public class Problem extends AppCompatActivity {
+public class Problem extends GPSActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

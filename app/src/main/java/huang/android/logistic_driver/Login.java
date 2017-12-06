@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import huang.android.logistic_driver.API.API;
+import huang.android.logistic_driver.GPSActivity.GPSActivity;
 import huang.android.logistic_driver.Model.Login.DriverLogin;
 import huang.android.logistic_driver.Model.Login.LoginUserPermission;
 import huang.android.logistic_driver.Model.Login.LoginUserPermissionResponse;
@@ -23,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login extends AppCompatActivity {
+public class Login extends GPSActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

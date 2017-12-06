@@ -4,9 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import huang.android.logistic_driver.GPSActivity.GPSActivity;
 import huang.android.logistic_driver.R;
 
-public class Chat extends AppCompatActivity {
+public class Chat extends GPSActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

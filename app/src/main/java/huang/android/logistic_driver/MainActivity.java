@@ -1,18 +1,26 @@
 package huang.android.logistic_driver;
 
+import android.*;
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -26,6 +34,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import huang.android.logistic_driver.Bantuan.Bantuan;
 import huang.android.logistic_driver.GPSActivity.GPSActivity;
+import huang.android.logistic_driver.GPSActivity.GPSServices;
 import huang.android.logistic_driver.Lihat_Pesanan.ViewJobOrder;
 import huang.android.logistic_driver.Lihat_Profile.MyProfile;
 import huang.android.logistic_driver.Pengaturan.Settings;
@@ -38,6 +47,7 @@ public class MainActivity extends GPSActivity
     protected void onCreate(Bundle savedInstanceState) {
         Utility.utility.getLanguage(this);
         super.onCreate(savedInstanceState);
+
         FirebaseApp.initializeApp(this);
 
         setContentView(R.layout.activity_main);
@@ -54,40 +64,40 @@ public class MainActivity extends GPSActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Fragment fragment = new Dashboard();
-        FragmentManager manager2=getSupportFragmentManager();
+        FragmentManager manager2 = getSupportFragmentManager();
         manager2.beginTransaction().replace(R.id.contentLayout,
-                fragment,fragment.getTag()).commit();
+                fragment, fragment.getTag()).commit();
         setTitle(R.string.dashboard);
 
         FirebaseApp.initializeApp(getApplicationContext());
         final String token = FirebaseInstanceId.getInstance().getToken();
         if (token != null) {
-            Log.e("Token",token);
+            Log.e("Token", token);
         }
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.e("Token",token);
+                Log.e("Token", token);
             }
         };
-        registerReceiver(broadcastReceiver,new IntentFilter(token));
+        registerReceiver(broadcastReceiver, new IntentFilter(token));
 
         GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
 
-        String driver = Utility.utility.getLoggedName(this).replace(" ","_");
-        driver = driver.replace("@","_");
+        String driver = Utility.utility.getLoggedName(this).replace(" ", "_");
+        driver = driver.replace("@", "_");
         FirebaseMessaging.getInstance().subscribeToTopic(driver);
 
     }
 
     boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else if (doubleBackToExitPressedOnce) {
+        } else if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
         }
@@ -99,7 +109,7 @@ public class MainActivity extends GPSActivity
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
@@ -126,9 +136,9 @@ public class MainActivity extends GPSActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void displaySelectedScreen(int id){
+    private void displaySelectedScreen(int id) {
         Fragment fragment = null;
-        switch (id){
+        switch (id) {
             case R.id.nav_db:
                 fragment = new Dashboard();
                 setTitle(R.string.dashboard);
@@ -151,19 +161,19 @@ public class MainActivity extends GPSActivity
                 break;
             case R.id.nav_logout:
                 SharedPreferences mPrefs;
-                mPrefs = getSharedPreferences("myprefs",MODE_PRIVATE);
+                mPrefs = getSharedPreferences("myprefs", MODE_PRIVATE);
                 SharedPreferences.Editor ed = mPrefs.edit();
                 ed.putString("cookieJar", "null");
                 ed.commit();
-                Intent mainIntent = new Intent(MainActivity.this,SplashScreen.class);
+                Intent mainIntent = new Intent(MainActivity.this, SplashScreen.class);
                 startActivity(mainIntent);
                 finish();
                 break;
         }
-        if(fragment != null){
-            FragmentManager manager2=getSupportFragmentManager();
+        if (fragment != null) {
+            FragmentManager manager2 = getSupportFragmentManager();
             manager2.beginTransaction().replace(R.id.contentLayout,
-                    fragment,fragment.getTag()).commit();
+                    fragment, fragment.getTag()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -183,4 +193,5 @@ public class MainActivity extends GPSActivity
     public static void resetIntervalGPS() {
         resetIntervalGPS();
     }
+
 }

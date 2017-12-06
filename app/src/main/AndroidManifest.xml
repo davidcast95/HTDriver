@@ -27,6 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name=".GPSActivity.GPSActivity" android:process=":gps_activity" />
         <activity
             android:name="huang.android.logistic_driver.MainActivity"
             android:label="@string/app_name"

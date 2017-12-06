@@ -65,8 +65,8 @@ public class Utility {
         editor.putInt("intervalGPS", interval);
         editor.commit();
     }
-    public int getBackgroundUpdate(Activity activity) {
-        SharedPreferences prefs1 = activity.getSharedPreferences("GlobalSettings", Context.MODE_PRIVATE);
+    public int getBackgroundUpdate(Context context) {
+        SharedPreferences prefs1 =  context.getSharedPreferences("GlobalSettings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs1.edit();
         return prefs1.getInt("intervalGPS",5000);
     }
@@ -244,7 +244,7 @@ public class Utility {
 
     public String formatLocation(Location location) {
         if (location.code == null)
-            return  "<strong>" +location.warehouse + "</strong><br><big>" + location.address + ", " + location.city + "</big>";
-        return "<strong>" + location.warehouse + "</strong> ("+ location.code +")<br><big>" + location.address + ", " + location.city + "</big>";
+            return  "<h4>" +location.warehouse + "</h4><big>" + location.address + ", " + location.city + "</big>";
+        return "<h4>" + location.warehouse + "("+ location.code +")</h4><big>" + location.address + ", " + location.city + "</big>";
     }
 }

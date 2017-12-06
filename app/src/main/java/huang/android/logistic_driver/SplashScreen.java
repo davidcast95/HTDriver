@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class SplashScreen extends AppCompatActivity {
+import huang.android.logistic_driver.GPSActivity.GPSActivity;
+
+public class SplashScreen extends GPSActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
