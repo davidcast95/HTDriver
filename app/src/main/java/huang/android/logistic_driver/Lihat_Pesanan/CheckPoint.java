@@ -12,6 +12,8 @@ import com.google.android.gms.location.LocationListener;
 
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,7 +33,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -65,6 +69,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -90,15 +95,19 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
 
     private Spinner spinner;
     private GoogleMap mMap;
-    ProgressBar loading;
+    RelativeLayout loading;
+    TextView loadingProcess;
     EditText notesEditText;
     GridView gridView;
     CheckPointAdapter checkPointAdapter;
     List<String> categories = new ArrayList<String>();
     String joid, principle, vendor, driver;
+    Uri imageUri;
     List<Bitmap> bufferListImages;
 
     Button klik;
+    Boolean isLoading = false;
+    String updateJOID = "";
 
     GoogleApiClient mGoogleApiClient;
     protected synchronized void buildGoogleApiClient() {
@@ -112,11 +121,14 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
         super.onCreate(savedInstanceState);
         setTitle(R.string.checkpoint);
         setContentView(R.layout.activity_check_point);
 
-        loading=(ProgressBar)findViewById(R.id.loading);
+        loading=(RelativeLayout) findViewById(R.id.loading);
+        loadingProcess=(TextView) findViewById(R.id.loading_process);
         loading.setVisibility(View.GONE);
         gridView = (GridView) findViewById(R.id.photo);
 
@@ -130,7 +142,7 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
         getNextStage();
         bufferListImages = new ArrayList<>();
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
 
@@ -165,9 +177,40 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
             }
         } else {
             Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(camera,0);
+            imageUri = generateTimeStampPhotoFileUri();
+            camera.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            startActivityForResult(camera,1);
         }
 
+    }
+
+    private Uri generateTimeStampPhotoFileUri() {
+
+        Uri photoFileUri = null;
+        File outputDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if (outputDir != null) {
+
+            File photoFile = new File(outputDir, System.currentTimeMillis()
+                    + ".jpg");
+            photoFileUri = Uri.fromFile(photoFile);
+        }
+        return photoFileUri;
+    }
+
+    private File getPhotoDirectory() {
+        File outputDir = null;
+        File photoDir = getCacheDir(); //Environment.getDataDirectory();
+        outputDir = new File(photoDir, getString(R.string.app_name));
+        if (!outputDir.exists())
+            if (!outputDir.mkdirs()) {
+                Toast.makeText(
+                        this,
+                        "Failed to create directory "
+                                + outputDir.getAbsolutePath(),
+                        Toast.LENGTH_SHORT).show();
+                outputDir = null;
+            }
+        return outputDir;
     }
 
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener(){
@@ -208,17 +251,28 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null){
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = (Bitmap) extras.get("data");
 //            image1.setImageBitmap(imageBitmap);
-            bufferListImages.add(imageBitmap);
+//            bufferListImages.add(imageBitmap);
+
 //            if(bufferListImages.size()==5){
 //                klik.setVisibility(View.INVISIBLE);
 //            }
 
-            checkPointAdapter = new CheckPointAdapter(getApplicationContext(),R.layout.activity_check_point_photo_list, bufferListImages);
-            gridView.setAdapter(checkPointAdapter);
-            gridView.setOnItemClickListener(onListClick);
+        }
+        if (requestCode == 1) {
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                bufferListImages.add(bitmap);
+                checkPointAdapter = new CheckPointAdapter(getApplicationContext(), R.layout.activity_check_point_photo_list, bufferListImages);
+                gridView.setAdapter(checkPointAdapter);
+                gridView.setOnItemClickListener(onListClick);
+            } catch (IOException eio) {
+
+            }
         }
     }
 
@@ -233,53 +287,65 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
     }
     //API
     void updateStatus() {
-        loading.setVisibility(View.VISIBLE);
-        klik.setEnabled(false);
-        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
-        API api = Utility.utility.getAPIWithCookie(cookieJar);
-        JobOrderUpdateData jobOrderUpdateData = new JobOrderUpdateData();
-        jobOrderUpdateData.joid = joid;
-        Date today = new Date();
-        jobOrderUpdateData.note = notesEditText.getText().toString();
-        jobOrderUpdateData.time = Utility.utility.dateToFormatDatabase(today);
-        jobOrderUpdateData.longitude = longi + "";
-        jobOrderUpdateData.latitude = lat + "";
-        jobOrderUpdateData.docstatus = 1;
-        jobOrderUpdateData.principle = principle;
-        jobOrderUpdateData.vendor = vendor;
-        String status = spinner.getSelectedItem().toString();
-        jobOrderUpdateData.status = status;
+        if (!updateJOID.equals("") && bufferListImages.size() > 0) {
+            uploadImage(updateJOID);
+        } else {
+            klik.setEnabled(false);
+            isLoading = true;
 
-        if (status.equals("6. Pekerjaan Selesai")) {
-            updateJOStatus();
-        }
-        String a = new Gson().toJson(jobOrderUpdateData);
-        Call<JobOrderUpdateCreation> callInsertUpdateJO = api.insertUpdateJO(jobOrderUpdateData);
-        callInsertUpdateJO.enqueue(new Callback<JobOrderUpdateCreation>() {
-            @Override
-            public void onResponse(Call<JobOrderUpdateCreation> call, Response<JobOrderUpdateCreation> response) {
-                loading.setVisibility(View.GONE);
-                klik.setEnabled(true);
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+            klik.setEnabled(false);
+            MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+            API api = Utility.utility.getAPIWithCookie(cookieJar);
+            JobOrderUpdateData jobOrderUpdateData = new JobOrderUpdateData();
+            jobOrderUpdateData.joid = joid;
+            Date today = new Date();
+            jobOrderUpdateData.note = notesEditText.getText().toString();
+            jobOrderUpdateData.time = Utility.utility.dateToFormatDatabase(today);
+            jobOrderUpdateData.longitude = longi + "";
+            jobOrderUpdateData.latitude = lat + "";
+            jobOrderUpdateData.docstatus = 1;
+            jobOrderUpdateData.principle = principle;
+            jobOrderUpdateData.vendor = vendor;
+            String status = spinner.getSelectedItem().toString();
+            jobOrderUpdateData.status = status;
 
-                    String updateJOID = response.body().data.id;
-                    uploadImage(updateJOID);
+            if (status.equals("6. Pekerjaan Selesai")) {
+                updateJOStatus();
+            }
 
+            loadingProcess.setText("Update status " + status + " untuk JOID : " + joid);
+            loading.setVisibility(View.VISIBLE);
+            String a = new Gson().toJson(jobOrderUpdateData);
+            Call<JobOrderUpdateCreation> callInsertUpdateJO = api.insertUpdateJO(jobOrderUpdateData);
+            callInsertUpdateJO.enqueue(new Callback<JobOrderUpdateCreation>() {
+                @Override
+                public void onResponse(Call<JobOrderUpdateCreation> call, Response<JobOrderUpdateCreation> response) {
+                    loading.setVisibility(View.GONE);
+                    klik.setEnabled(true);
+                    if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+
+                        updateJOID = response.body().data.id;
+                        if (bufferListImages.size() > 0)
+                            loadingProcess.setText("Uploading images...");
+                        uploadImage(updateJOID);
+
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<JobOrderUpdateCreation> call, Throwable t) {
-                loading.setVisibility(View.GONE);
-                klik.setEnabled(true);
-                Utility.utility.showConnectivityUnstable(getApplicationContext());
-            }
-        });
+                @Override
+                public void onFailure(Call<JobOrderUpdateCreation> call, Throwable t) {
+                    loading.setVisibility(View.GONE);
+                    isLoading = false;
+                    klik.setEnabled(true);
+                    Utility.utility.showConnectivityUnstable(getApplicationContext());
+                }
+            });
+        }
     }
 
     public String convertImage(Bitmap bitmap){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         Log.e("BASE 64",encoded);
@@ -288,6 +354,9 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
 
     void uploadImage(final String updateJOID) {
         if (bufferListImages.size() > 0) {
+            loading.setVisibility(View.VISIBLE);
+            loadingProcess.setText("Uploading images...");
+            isLoading = true;
             MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
             API api = Utility.utility.getAPIWithCookie(cookieJar);
             String base64 = convertImage(bufferListImages.get(0));
@@ -300,13 +369,16 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     bufferListImages.remove(0);
                     uploadImage(updateJOID);
+
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     loading.setVisibility(View.GONE);
-                    setResult(RESULT_CANCELED);
-                    finish();
+                    isLoading = false;
+                    Utility.utility.showConnectivityUnstable(getApplicationContext());
+//                    setResult(RESULT_CANCELED);
+//                    finish();
 
                 }
             });
@@ -369,7 +441,6 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
         categories.add("4. Tiba di Lokasi Bongkar");
         categories.add("5. Proses Bongkar Selesai");
         categories.add("6. Pekerjaan Selesai");
-
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -382,7 +453,7 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         if (mGoogleApiClient == null) {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
@@ -520,11 +591,13 @@ public class CheckPoint extends GPSActivity implements OnMapReadyCallback, Direc
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_yes:
-                dialog();
+                if (!isLoading)
+                    dialog();
                 break;
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
-                this.finish();
+                if (!isLoading)
+                    this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
