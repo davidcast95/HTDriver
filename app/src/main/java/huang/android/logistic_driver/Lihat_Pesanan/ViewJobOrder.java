@@ -1,13 +1,18 @@
 package huang.android.logistic_driver.Lihat_Pesanan;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
@@ -16,8 +21,7 @@ import android.widget.TextView;
 import huang.android.logistic_driver.API.API;
 import huang.android.logistic_driver.Lihat_Pesanan.Active.OrderActive;
 import huang.android.logistic_driver.Lihat_Pesanan.Done.OrderDone;
-import huang.android.logistic_driver.Model.JobOrder.JobOrderResponse;
-import huang.android.logistic_driver.Model.JobOrder.JobOrderStatus;
+import huang.android.logistic_driver.Model.JobOrder.JobOrderMetaDataResponse;
 import huang.android.logistic_driver.Model.MyCookieJar;
 import huang.android.logistic_driver.R;
 import huang.android.logistic_driver.Utility;
@@ -30,10 +34,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener{
+
+
+    private MenuItem mSearchItem;
+    private SearchView sv;
     ViewPager viewPager;
     TabHost tabHost;
     int onprogress = 0,done = 0;
+    int p_onprogress = 0,p_done = 0, limit=20;
+
+    public OrderActive orderActive = new OrderActive();
+    public OrderDone orderDone = new OrderDone();
     View v;
+
     public ViewJobOrder() {
         // Required empty public constructor
     }
@@ -46,6 +59,7 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
 
         initViewPager();
         initTabHost();
+        setHasOptionsMenu(true);
 
         return v;
     }
@@ -54,6 +68,39 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
     public void onStart() {
         super.onStart();
         getCount();
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        mSearchItem = menu.findItem(R.id.search);
+        sv = (SearchView) MenuItemCompat.getActionView(mSearchItem);
+        sv.setIconified(true);
+
+        SearchManager searchManager = (SearchManager)  getActivity().getSystemService(Context.SEARCH_SERVICE);
+        sv.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                sv.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                Log.e("search",query);
+                int selectedItem = tabHost.getCurrentTab();
+                if (selectedItem == 0) {
+                    orderActive.searchJobOrder(query);
+                } else {
+                    orderDone.searchJobOrder(query);
+                }
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu,inflater);
+
     }
 
     private void initTabHost() {
@@ -100,8 +147,8 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
     private void initViewPager() {
         viewPager = (ViewPager)v.findViewById(R.id.view_pager);
         List<Fragment> listFragments =  new ArrayList<Fragment>();
-        listFragments.add(new OrderActive());
-        listFragments.add(new OrderDone());
+        listFragments.add(orderActive);
+        listFragments.add(orderDone);
 
         ViewJobOrderPagerAdapter viewJobOrderAdapter = new ViewJobOrderPagerAdapter(getChildFragmentManager(), listFragments);
         viewPager.setAdapter(viewJobOrderAdapter);
@@ -130,64 +177,52 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
         viewPager.setCurrentItem(selectedItem);
     }
 
-    void getActiveOrder() {
+    void getJOMetaData() {
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String driver = Utility.utility.getLoggedName(this.getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.ON_PROGRESS+"\"],[\"Job Order\",\"driver\",\"=\",\"" + driver + "\"]]");
-        callJO.enqueue(new Callback<JobOrderResponse>() {
+        Call<JobOrderMetaDataResponse> callJO = api.getJobOrderCount(driver);
+        callJO.enqueue(new Callback<JobOrderMetaDataResponse>() {
             @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
-                    onprogress = response.body().jobOrders.size();
-                    SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-                    String language = prefs.getString("language","Bahasa Indonesia");
-                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
-                    if(language.contentEquals("English")) {
-                        label.setText("On Progress (" + onprogress + ")");
-                    } else {
-                        label.setText("Dalam Proses (" + onprogress + ")");
+            public void onResponse(Call<JobOrderMetaDataResponse> call, Response<JobOrderMetaDataResponse> response) {
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response, "")) {
+                    JobOrderMetaDataResponse metaDataResponse = response.body();
+                    if (metaDataResponse != null) {
+                        onprogress = metaDataResponse.message.onprogress.count;
+                        done = metaDataResponse.message.done.count;
+
+                        SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
+                        String language = prefs.getString("language","Bahasa Indonesia");
+                        TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
+                        if(language.contentEquals("English")) {
+                            label.setText("Active (" + onprogress + ")");
+                        } else {
+                            label.setText("Aktif (" + onprogress + ")");
+                        }
+                        label = (TextView)tabHost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
+                        if(language.contentEquals("English")) {
+                            label.setText("Complete (" + done + ")");
+                        } else {
+                            label.setText("Selesai (" + done + ")");
+                        }
                     }
+                    
                 }
 
             }
 
             @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
-            }
-        });
-    }
-    void getDoneOrder() {
-        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
-        API api = Utility.utility.getAPIWithCookie(cookieJar);
-        String driver = Utility.utility.getLoggedName(this.getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.DONE+"\"],[\"Job Order\",\"driver\",\"=\",\"" + driver + "\"]]");
-        callJO.enqueue(new Callback<JobOrderResponse>() {
-            @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
-                    done = response.body().jobOrders.size();
-                    SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-                    String language = prefs.getString("language","Bahasa Indonesia");
-                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
-                    if(language.contentEquals("English")) {
-                        label.setText("Complete (" + done + ")");
-                    } else {
-                        label.setText("Selesai (" + done + ")");
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            public void onFailure(Call<JobOrderMetaDataResponse> call, Throwable t) {
             }
         });
     }
 
     public void getCount() {
-        getActiveOrder();
-        getDoneOrder();
+        done = 0;
+        p_done = 0;
+        onprogress = 0;
+        p_onprogress = 0;
+        getJOMetaData();
     }
 
 

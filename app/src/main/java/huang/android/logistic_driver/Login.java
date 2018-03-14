@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import huang.android.logistic_driver.API.API;
-import huang.android.logistic_driver.GPSActivity.GPSActivity;
 import huang.android.logistic_driver.Model.Login.DriverLogin;
 import huang.android.logistic_driver.Model.Login.LoginUserPermission;
 import huang.android.logistic_driver.Model.Login.LoginUserPermissionResponse;
@@ -24,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login extends GPSActivity {
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,7 @@ public class Login extends GPSActivity {
                 loading.setVisibility(View.GONE);
                 if(response.code() == 200) {
                     Utility.utility.saveLoggedName(user, activity);
-
+                    Utility.utility.saveUsername(user,activity);
                     Utility.utility.saveCookieJarToPreference(cookieJar, activity);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
@@ -94,7 +93,7 @@ public class Login extends GPSActivity {
         loginUserPermissionResponseCall.enqueue(new Callback<LoginUserPermissionResponse>() {
             @Override
             public void onResponse(Call<LoginUserPermissionResponse> call, Response<LoginUserPermissionResponse> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response, "")) {
                     List<LoginUserPermission> data = response.body().data;
                     if (data.size() > 0) {
 

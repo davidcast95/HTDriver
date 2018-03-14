@@ -3,10 +3,9 @@ package huang.android.logistic_driver.Lihat_Profile;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import huang.android.logistic_driver.GPSActivity.GPSActivity;
 import huang.android.logistic_driver.R;
 
-public class ChangePassword extends GPSActivity {
+public class ChangePassword extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!--
@@ -27,7 +28,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".GPSActivity.GPSActivity" android:process=":gps_activity" />
+        <service
+            android:name=".GPSActivity.LocationUpdatesIntentService"
+            android:exported="false" />
+
+        <receiver android:name=".GPSActivity.LocationUpdatesBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.location.sample.backgroundlocationupdates.LocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".Firebase.FirebaseMessageService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".Firebase.FIRInstanceIDServices" android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
         <activity
             android:name="huang.android.logistic_driver.MainActivity"
             android:label="@string/app_name"
@@ -104,10 +126,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="huang.android.logistic_driver.Lihat_Pesanan.TrackHistory" />
         </activity>
+        <activity
+            android:name="huang.android.logistic_driver.Lihat_Pesanan.Gallery.GalleryActivity"
+            android:parentActivityName="huang.android.logistic_driver.Lihat_Pesanan.TrackHistory"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="huang.android.logistic_driver.Lihat_Pesanan.TrackHistory" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBXt5KLS1ov_tyd2oHb_Y4b6GxxVoUyehg" />
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name="huang.android.logistic_driver.QRCode"
@@ -145,14 +176,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="huang.android.logistic_driver.Lihat_Pesanan.Active.DetailOrderActive" />
         </activity>
+
         <activity
-            android:name="huang.android.logistic_driver.Chat.Chat"
-            android:parentActivityName="huang.android.logistic_driver.Lihat_Pesanan.Active.DetailOrderActive"
+            android:name=".Chat.Chat"
+            android:parentActivityName=".Lihat_Pesanan.Active.DetailOrderActive"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="huang.android.logistic_driver.Lihat_Pesanan.Active.DetailOrderActive" />
+                android:value=".Lihat_Pesanan.Active.DetailOrderActive" />
         </activity>
     </application>
 

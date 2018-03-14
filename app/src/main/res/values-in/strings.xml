@@ -51,18 +51,18 @@
     <string name="dpd">Detail Pesanan Selesai</string>
 
     <string name="dp_vendorinfo">Informasi Penyedia Jasa</string>
-    <string name="dp_vendorname">Nama Penyedia Jasa</string>
-    <string name="dp_vendorcpname">Nama CP Penyedia Jasa</string>
-    <string name="dp_vendorcpphone">Telp CP Penyedia Jasa</string>
+    <string name="dp_vendorname">Nama</string>
+    <string name="dp_vendorcpname">Nama CP</string>
+    <string name="dp_vendorcpphone">Telp CP</string>
 
     <string name="dp_principleinfo">Informasi Pengguna Jasa</string>
-    <string name="dp_principlename">Pengguna Jasa Name</string>
-    <string name="dp_principlecpname">Pengguna Jasa CP Name</string>
-    <string name="dp_principlecpphone">Pengguna Jasa CP Phone</string>
+    <string name="dp_principlename">Nama</string>
+    <string name="dp_principlecpname">Nama CP</string>
+    <string name="dp_principlecpphone">Telp CP</string>
 
     <string name="dp_cargoinfo">Informasi Muatan</string>
-    <string name="dp_estpick">Estimasi Tanggal Pengambilan</string>
-    <string name="dp_estdelivered">Estimasi Tanggal Diterima</string>
+    <string name="dp_estpick">Tanggal Pengambilan</string>
+    <string name="dp_estdelivered">Tanggal Diterima</string>
     <string name="dp_estvolume">Estimasi Volume</string>
     <string name="dp_hullno">No Lambung</string>
     <string name="dp_cargotruck">Truk</string>
@@ -173,6 +173,33 @@
     <string name="admin">Kontak Admin</string>
 
     <!--VESION-->
-    <string name="version">Versi 1.1.2 build 7</string>
+    <string name="version">Versi 1.6</string>
+    <string name="warning_location">lokasi wajib diisi</string>
+    <string name="warning_cp">contact person wajib diisi</string>
+    <string name="warning_item_info">info barang wajib diisi</string>
+    <string name="add_stop_location">Tambah Pemberhentian</string>
+    <string name="status">Status</string>
+    <string name="location">Lokasi</string>
+    <string name="new_stop_location">Pemberhentian Baru</string>
+    <string name="cp">Contact Person</string>
+    <string name="item_info">Info Barang</string>
+    <string name="remark">Keterangan</string>
+    <string name="confirm_service">Konfirmasi Layanan</string>
+    <string name="confirm_delete">Apakah anda yakin untuk menghapus data ini ?</string>
+    <string name="confirm_delete_stop_location">Lokasi ini tidak dapat dikembalikan setelah dihapus!</string>
+    <string name="no">Tidak</string>
+    <string name="yes">Ya</string>
+    <string name="stop_location">tempat pemberhentian</string>
+    <string name="type">Tipe</string>
+    <string name="msg_new_assigned_jo">Pekerjaan aktif baru</string>
+    <string name="pick_location">Pilih lokasi</string>
+    <string name="message">Kotak Pesan</string>
+    <string name="type_your_message">ketik pesan</string>
+    <string name="no_update_location">Belum Ada Perubahan Lokasi</string>
+    <string name="last_update_on">Perubahan terakhir pada</string>
+    <string name="unable_to_load_image">Tidak dapat mengambil gambar</string>
+    <string name="no_image">Tidak ada gambar yang tersedia</string>
+    <string name="jo_update_image">Gambar Job Order Update</string>
+    <string name="last_position">Posisi Terakhir</string>
 
 </resources>

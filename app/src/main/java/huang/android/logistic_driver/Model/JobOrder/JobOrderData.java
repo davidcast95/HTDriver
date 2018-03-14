@@ -2,8 +2,21 @@ package huang.android.logistic_driver.Model.JobOrder;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import huang.android.logistic_driver.Model.JobOrderRoute.JobOrderRouteData;
+
 
 public class JobOrderData {
+
+    @SerializedName("principle_image")
+    public List<String> principle_image = new ArrayList<>();
+    @SerializedName("vendor_image")
+    public List<String> vendor_image = new ArrayList<>();
+
+    @SerializedName("modified")
+    public String modified;
     @SerializedName("reference")
     public String ref;
     @SerializedName("docstatus")
@@ -80,5 +93,7 @@ public class JobOrderData {
     @SerializedName("driver_phone")
     public String driver_phone = "-";
 
+    @SerializedName("routes")
+    public List<JobOrderRouteData> routes = new ArrayList<>();
 
 }

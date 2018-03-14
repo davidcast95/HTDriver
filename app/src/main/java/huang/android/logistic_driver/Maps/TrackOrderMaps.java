@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
-import huang.android.logistic_driver.GPSActivity.GPSActivity;
 import huang.android.logistic_driver.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrackOrderMaps extends GPSActivity implements OnMapReadyCallback, DirectionFinderListener {
+public class TrackOrderMaps extends AppCompatActivity implements OnMapReadyCallback, DirectionFinderListener {
 
     private GoogleMap mMap;
     private List<Marker> originMarkers = new ArrayList<>();

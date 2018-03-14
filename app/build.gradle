@@ -11,8 +11,8 @@ android {
         applicationId "huang.android.logistic_driver"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.1.2"
+        versionCode 27
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -29,6 +29,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    compile 'com.github.nicolasjafelle:paginglistview:1.2'
     //retrofit API
 
 

@@ -8,11 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import huang.android.logistic_driver.GPSActivity.GPSActivity;
 import huang.android.logistic_driver.MainActivity;
 import huang.android.logistic_driver.R;
 
-public class TolakPesanan extends GPSActivity {
+public class TolakPesanan extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

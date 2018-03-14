@@ -9,34 +9,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.paging.listview.PagingListView;
+
 import huang.android.logistic_driver.API.API;
 import huang.android.logistic_driver.Lihat_Pesanan.ViewJobOrder;
+import huang.android.logistic_driver.Model.JobOrder.GetJobOrderResponse;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderData;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderResponse;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderStatus;
+import huang.android.logistic_driver.Model.JobOrderRoute.JobOrderRouteResponse;
 import huang.android.logistic_driver.Model.MyCookieJar;
 import huang.android.logistic_driver.R;
 import huang.android.logistic_driver.Utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderDone extends Fragment {
+public class OrderDone extends Fragment implements PagingListView.Pagingable{
     View v;
-    OrderPendingAdapter onOrderPendingAdapter;
-    ListView lv;
+    PagingListView lv;
     ProgressBar loading;
     SwipeRefreshLayout mSwipeRefreshLayout;
     TextView noData;
 
-    public static List<JobOrderData> jobOrders;
+    public static List<JobOrderData> jobOrders = new ArrayList<>();
+    OrderDoneAdapter orderDoneAdapter;
+    int pager =0 , limit=20;
+    String lastQuery = "";
 
     public OrderDone() {
         // Required empty public constructor
@@ -48,7 +54,7 @@ public class OrderDone extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_order_pending, container, false);
 
-        lv=(ListView)v.findViewById(R.id.layout);
+        lv=(PagingListView) v.findViewById(R.id.layout);
         loading=(ProgressBar)v.findViewById(R.id.loading);
         noData=(TextView) v.findViewById(R.id.nodata);
         noData.setVisibility(View.GONE);
@@ -61,7 +67,11 @@ public class OrderDone extends Fragment {
                 refreshItems();
             }
         });
-
+        orderDoneAdapter = new OrderDoneAdapter(v.getContext(), R.layout.fragment_order_pending_list, jobOrders);
+        lv.setOnItemClickListener(onListClick);
+        lv.setAdapter(orderDoneAdapter);
+        lv.setHasMoreItems(false);
+        lv.setPagingableListener(this);
         return v;
     }
 
@@ -90,6 +100,8 @@ public class OrderDone extends Fragment {
     };
 
     void refreshItems() {
+        pager = 0;
+        orderDoneAdapter.clear();
         getDoneOrder();
         ViewJobOrder viewJobOrder = (ViewJobOrder)getParentFragment();
         viewJobOrder.getCount();
@@ -102,26 +114,26 @@ public class OrderDone extends Fragment {
 
     void getDoneOrder() {
         loading.setVisibility(View.VISIBLE);
-        lv.setVisibility(View.GONE);
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String driverName = Utility.utility.getLoggedName(getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\"" + JobOrderStatus.DONE +"\"], [\"Job Order\",\"driver\",\"=\",\""+driverName+"\"]]");
-        callJO.enqueue(new Callback<JobOrderResponse>() {
+        Call<GetJobOrderResponse> callJO = api.getJobOrder(JobOrderStatus.DONE,driverName,lastQuery + "%",""+(pager++ * limit));
+        callJO.enqueue(new Callback<GetJobOrderResponse>() {
             @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                Log.e("asd", response.message());
+            public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
                 loading.setVisibility(View.GONE);
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(),response)) {
-                    JobOrderResponse jobOrderResponse = response.body();
-                    jobOrders = jobOrderResponse.jobOrders;
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(),response,"")) {
+                    GetJobOrderResponse jobOrderResponse = response.body();
+                    if (jobOrderResponse.jobOrders != null) {
+                        orderDoneAdapter.addAll(jobOrderResponse.jobOrders);
+                        lv.onFinishLoading(true,null);
+                    } else {
+                        lv.onFinishLoading(false,null);
+                    }
                     if (jobOrders.size() == 0) {
                         noData.setVisibility(View.VISIBLE);
                     } else {
                         noData.setVisibility(View.GONE);
-                        OrderPendingAdapter onProgressOrderAdapter = new OrderPendingAdapter(v.getContext(), R.layout.fragment_order_pending_list, jobOrders);
-                        lv.setOnItemClickListener(onListClick);
-                        lv.setAdapter(onProgressOrderAdapter);
                         lv.setVisibility(View.VISIBLE);
                     }
                     onItemsLoadComplete();
@@ -132,9 +144,52 @@ public class OrderDone extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            public void onFailure(Call<GetJobOrderResponse> call, Throwable t) {
                 loading.setVisibility(View.GONE);
             }
         });
+    }
+
+    void getJobOrderRoute(final JobOrderData jobOrderData) {
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        Call<JobOrderRouteResponse> callRoutes = api.getJobOrderRoute("[[\"Job Order Route\",\"parent\",\"=\",\""+jobOrderData.joid+"\"]]");
+        callRoutes.enqueue(new Callback<JobOrderRouteResponse>() {
+            @Override
+            public void onResponse(Call<JobOrderRouteResponse> call, Response<JobOrderRouteResponse> response) {
+                JobOrderRouteResponse jobOrderRouteResponse = response.body();
+                if (jobOrderRouteResponse != null) {
+                    jobOrderData.routes = jobOrderRouteResponse.routes;
+                    orderDoneAdapter.add(jobOrderData);
+                    if (jobOrders.size() == 0) {
+                        noData.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        noData.setVisibility(View.GONE);
+                        lv.setVisibility(View.VISIBLE);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JobOrderRouteResponse> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onLoadMoreItems() {
+        getDoneOrder();
+    }
+
+    public void searchJobOrder(String query) {
+        loading.setVisibility(View.VISIBLE);
+        lastQuery = query;
+        pager = 0;
+        orderDoneAdapter.clear();
+        getDoneOrder();
     }
 }

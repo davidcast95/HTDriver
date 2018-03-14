@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.github.nicolasjafelle:paginglistview-1.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/paginglistview-1.2.aar/4826c4f5a51edaf401a83a86f59a88d7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/paginglistview-1.2.aar/4826c4f5a51edaf401a83a86f59a88d7/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.nicolasjafelle/paginglistview/1.2/69a692c1724eb0ec61c6406df520ef90ccd81383/paginglistview-1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

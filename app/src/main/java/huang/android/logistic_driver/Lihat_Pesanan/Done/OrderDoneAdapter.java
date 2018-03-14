@@ -17,9 +17,9 @@ import java.util.List;
  * Created by Kristoforus Gumilang on 8/24/2017.
  */
 
-public class OrderPendingAdapter extends JobOrderAdapter {
+public class OrderDoneAdapter extends JobOrderAdapter {
 
-    public OrderPendingAdapter(Context context, int layout, List<JobOrderData> list) {
+    public OrderDoneAdapter(Context context, int layout, List<JobOrderData> list) {
         super(context, layout, list);
     }
 }

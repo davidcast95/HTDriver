@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import huang.android.logistic_driver.GPSActivity.GPSServices;
 import huang.android.logistic_driver.MainActivity;
 import huang.android.logistic_driver.R;
 import huang.android.logistic_driver.SplashScreen;
@@ -53,7 +52,7 @@ public class Settings extends Fragment {
         spinner = (Spinner) v.findViewById(R.id.spinner);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(),
                 R.layout.spinner_item, categories);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        dataAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(dataAdapter);
 
         List<String> categories2 = new ArrayList<String>();
@@ -63,7 +62,7 @@ public class Settings extends Fragment {
         spinner2 = (Spinner) v.findViewById(R.id.spinner2);
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this.getActivity(),
                 R.layout.spinner_item, categories2);
-        dataAdapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        dataAdapter2.setDropDownViewResource(R.layout.spinner_item);
         spinner2.setAdapter(dataAdapter2);
 
         return v;

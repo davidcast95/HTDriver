@@ -26,12 +26,11 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import huang.android.logistic_driver.GPSActivity.GPSActivity;
 
 import java.io.IOException;
 
 
-public class QRCode extends GPSActivity {
+public class QRCode extends AppCompatActivity {
     SurfaceView cameraPreview;
     TextView textResult;
     BarcodeDetector barcodeDetector;
@@ -108,7 +107,7 @@ public class QRCode extends GPSActivity {
                                 Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                                 vibrator.vibrate(500);
                                 loading.setVisibility(View.VISIBLE);
-                                textResult.setText(qrcodes.valueAt(0).displayValue);
+                                Utility.utility.setTextView(textResult,qrcodes.valueAt(0).displayValue);
                                 isiQR=qrcodes.valueAt(0).displayValue;
                                 Log.e("JA-ID",JaID);
                                 Log.e("USER QR",isiQR);

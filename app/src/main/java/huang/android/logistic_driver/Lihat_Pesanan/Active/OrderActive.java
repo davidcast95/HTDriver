@@ -13,15 +13,20 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.paging.listview.PagingListView;
+
 import huang.android.logistic_driver.API.API;
 import huang.android.logistic_driver.Lihat_Pesanan.ViewJobOrder;
+import huang.android.logistic_driver.Model.JobOrder.GetJobOrderResponse;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderData;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderResponse;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderStatus;
+import huang.android.logistic_driver.Model.JobOrderRoute.JobOrderRouteResponse;
 import huang.android.logistic_driver.Model.MyCookieJar;
 import huang.android.logistic_driver.R;
 import huang.android.logistic_driver.Utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,15 +34,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class OrderActive extends Fragment {
+public class OrderActive extends Fragment implements PagingListView.Pagingable {
     View v;
 
-    ListView lv;
+    PagingListView lv;
     ProgressBar loading;
     SwipeRefreshLayout mSwipeRefreshLayout;
     TextView noData;
 
-    public static List<JobOrderData> jobOrders;
+    public static List<JobOrderData> jobOrders = new ArrayList<>();
+    OrderActiveAdapter onProgressOrderAdapter;
+    int pager = 0, limit = 20;
+    String lastQuery = "";
 
     public OrderActive() {
         // Required empty public constructor
@@ -49,7 +57,7 @@ public class OrderActive extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_order_aktif, container, false);
 
-        lv=(ListView)v.findViewById(R.id.layout);
+        lv=(PagingListView) v.findViewById(R.id.layout);
         loading=(ProgressBar)v.findViewById(R.id.loading);
         noData = (TextView)v.findViewById(R.id.nodata);
         noData.setVisibility(View.GONE);
@@ -62,7 +70,11 @@ public class OrderActive extends Fragment {
                 refreshItems();
             }
         });
-
+        onProgressOrderAdapter = new OrderActiveAdapter(v.getContext(), R.layout.fragment_order_aktif_list, jobOrders);
+        lv.setOnItemClickListener(onListClick);
+        lv.setAdapter(onProgressOrderAdapter);
+        lv.setHasMoreItems(false);
+        lv.setPagingableListener(this);
         return v;
     }
 
@@ -91,6 +103,8 @@ public class OrderActive extends Fragment {
     };
 
     void refreshItems() {
+        pager = 0;
+        onProgressOrderAdapter.clear();
         getActiveOrder();
         ViewJobOrder viewJobOrder = (ViewJobOrder)getParentFragment();
         viewJobOrder.getCount();
@@ -103,26 +117,26 @@ public class OrderActive extends Fragment {
 
     void getActiveOrder() {
         loading.setVisibility(View.VISIBLE);
-        lv.setVisibility(View.GONE);
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String driverName = Utility.utility.getLoggedName(getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.ON_PROGRESS+"\"], [\"Job Order\",\"driver\",\"=\",\""+driverName+"\"]]");
-        callJO.enqueue(new Callback<JobOrderResponse>() {
+        Call<GetJobOrderResponse> callJO = api.getJobOrder(JobOrderStatus.ON_PROGRESS,driverName,lastQuery + "%","" + (pager++ * limit));
+        callJO.enqueue(new Callback<GetJobOrderResponse>() {
             @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                Log.e("asd",response.message());
+            public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
                 loading.setVisibility(View.GONE);
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
-                    JobOrderResponse jobOrderResponse = response.body();
-                    jobOrders = jobOrderResponse.jobOrders;
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response, "")) {
+                    GetJobOrderResponse jobOrderResponse = response.body();
+                    if (jobOrderResponse.jobOrders != null) {
+                        onProgressOrderAdapter.addAll(jobOrderResponse.jobOrders);
+                        lv.onFinishLoading(true,jobOrderResponse.jobOrders);
+                    } else {
+                        lv.onFinishLoading(false,null);
+                    }
                     if (jobOrders.size() == 0) {
                         noData.setVisibility(View.VISIBLE);
                     } else {
                         noData.setVisibility(View.GONE);
-                        OrderActiveAdapter onProgressOrderAdapter = new OrderActiveAdapter(v.getContext(), R.layout.fragment_order_aktif_list, jobOrders);
-                        lv.setOnItemClickListener(onListClick);
-                        lv.setAdapter(onProgressOrderAdapter);
                         lv.setVisibility(View.VISIBLE);
                     }
                     onItemsLoadComplete();
@@ -133,11 +147,24 @@ public class OrderActive extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            public void onFailure(Call<GetJobOrderResponse> call, Throwable t) {
 
                 loading.setVisibility(View.GONE);
             }
         });
     }
 
+
+    @Override
+    public void onLoadMoreItems() {
+        getActiveOrder();
+    }
+
+    public void searchJobOrder(String query) {
+        loading.setVisibility(View.VISIBLE);
+        lastQuery = query;
+        pager = 0;
+        onProgressOrderAdapter.clear();
+        getActiveOrder();
+    }
 }

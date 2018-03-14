@@ -17,13 +17,18 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.paging.listview.PagingListView;
+
 import huang.android.logistic_driver.API.API;
 import huang.android.logistic_driver.Lihat_Pesanan.Active.DetailOrderActive;
+import huang.android.logistic_driver.Model.JobOrder.GetJobOrderResponse;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderData;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderResponse;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderStatus;
+import huang.android.logistic_driver.Model.JobOrderRoute.JobOrderRouteResponse;
 import huang.android.logistic_driver.Model.MyCookieJar;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,15 +37,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class Dashboard extends Fragment {
+public class Dashboard extends Fragment implements PagingListView.Pagingable {
     View v;
-    ListView lv;
+    PagingListView lv;
     TextView noData;
-    PendingOrderAdapter pendingOrderAdapter;
-    DashboardAdapter dashboardAdapter;
     ProgressBar loading;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    public static List<JobOrderData> jobOrders;
+    public static List<JobOrderData> jobOrders = new ArrayList<>();
+    PendingOrderAdapter pendingOrderAdapter;
+    int pager = 0,limit=20;
 
     public Dashboard() {
         // Required empty public constructor
@@ -55,7 +60,7 @@ public class Dashboard extends Fragment {
         v = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         noData = (TextView) v.findViewById(R.id.no_data);
-        lv= (ListView) v.findViewById(R.id.pendingListView);
+        lv= (PagingListView) v.findViewById(R.id.pendingListView);
         lv.setVisibility(View.INVISIBLE);
         loading=(ProgressBar)v.findViewById(R.id.loading);
         mSwipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
@@ -66,6 +71,11 @@ public class Dashboard extends Fragment {
             }
         });
 
+        pendingOrderAdapter = new PendingOrderAdapter(v.getContext(), R.layout.default_order_list, jobOrders);
+        lv.setOnItemClickListener(onListClick);
+        lv.setAdapter(pendingOrderAdapter);
+        lv.setHasMoreItems(false);
+        lv.setPagingableListener(this);
         return v;
     }
 
@@ -94,24 +104,27 @@ public class Dashboard extends Fragment {
     //API
     void getOnProgressOrder() {
         noData.setVisibility(View.GONE);
-        lv.setVisibility(View.GONE);
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String driverName = Utility.utility.getLoggedName(getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.ON_PROGRESS+"\"], [\"Job Order\",\"driver\",\"=\",\""+driverName+"\"]]");
-        callJO.enqueue(new Callback<JobOrderResponse>() {
+        Call<GetJobOrderResponse> callJO = api.getJobOrder(JobOrderStatus.ON_PROGRESS, driverName,"%",""+(pager++ * limit));
+        callJO.enqueue(new Callback<GetJobOrderResponse>() {
             @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
-                    JobOrderResponse jobOrderResponse = response.body();
-                    jobOrders = jobOrderResponse.jobOrders;
-                    noData.setVisibility(View.GONE);
-                    if (jobOrders.size() == 0) noData.setVisibility(View.VISIBLE);
-                    else {
-                        PendingOrderAdapter pendingOrderAdapter = new PendingOrderAdapter(v.getContext(), R.layout.default_order_list, jobOrders);
-                        lv.setOnItemClickListener(onListClick);
-                        lv.setAdapter(pendingOrderAdapter);
+            public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response,"")) {
+                    GetJobOrderResponse jobOrderResponse = response.body();
+                    if (jobOrderResponse.jobOrders != null) {
+                        pendingOrderAdapter.addAll(jobOrderResponse.jobOrders);
                         lv.setVisibility(View.VISIBLE);
+                        lv.onFinishLoading(true,jobOrderResponse.jobOrders);
+                    } else {
+                        lv.onFinishLoading(false,null);
+                    }
+                    if (jobOrders.size() == 0) {
+                        noData.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        noData.setVisibility(View.GONE);
                     }
                     loading.setVisibility(View.GONE);
                     onItemsLoadComplete();
@@ -120,7 +133,7 @@ public class Dashboard extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            public void onFailure(Call<GetJobOrderResponse> call, Throwable t) {
                 Utility.utility.showConnectivityUnstable(getActivity().getApplicationContext());
                 loading.setVisibility(View.GONE);
             }
@@ -129,7 +142,10 @@ public class Dashboard extends Fragment {
 
 
 
+
     void refreshItems() {
+        pager = 0;
+        pendingOrderAdapter.clear();
         getOnProgressOrder();
     }
 
@@ -138,4 +154,8 @@ public class Dashboard extends Fragment {
     }
 
 
+    @Override
+    public void onLoadMoreItems() {
+        getOnProgressOrder();
+    }
 }

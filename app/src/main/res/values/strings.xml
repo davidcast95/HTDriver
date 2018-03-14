@@ -82,7 +82,7 @@
     <string name="dp_inforoute">Route Info</string>
     <string name="dp_biaya">Cost</string>
     <string name="dp_leadtime">Lead Time</string>
-    <string name="dp_eta">Estimate Time Arrival</string>
+    <string name="dp_eta">Estimate Timeese Arrival</string>
     <string name="dp_etd">Estimate Time Departure</string>
     <string name="dp_totalleadtime">Total Lead Time</string>
     <string name="dp_totalbiaya">Total Cost</string>
@@ -173,6 +173,34 @@
     <string name="admin">Message Admin</string>
 
     <!--VESION-->
-    <string name="version">Version 1.1.2 build 8</string>
+    <string name="version">Version 1.6</string>
+    <string name="warning_location">location is required</string>
+    <string name="warning_cp">contact person is required</string>
+    <string name="warning_item_info">item info is required</string>
+    <string name="add_stop_location">Add Stop Location</string>
+    <string name="status">Status</string>
+    <string name="location">Location</string>
+    <string name="new_stop_location">New Stop Location</string>
+    <string name="cp">Contact Person</string>
+    <string name="item_info">Item Info</string>
+    <string name="remark">Remark</string>
+    <string name="confirm_service">Confirmation Service</string>
+    <string name="confirm_delete">Are you sure want to delete this ?</string>
+    <string name="confirm_delete_stop_location">This location can\'t be undo after you delete this!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="stop_location">stop location</string>
+    <string name="type">Type</string>
+    <string name="msg_new_assigned_jo">New assigned Job Order</string>
+    <string name="pick_location">Pick a location</string>
+    <string name="message">Messages</string>
+    <string name="type_your_message">type your message</string>
+    <string name="no_update_location">No Update Location</string>
+    <string name="last_update_on">Last update on</string>
+    <string name="unable_to_load_image">Unable to load image</string>
+    <string name="no_image">No Image Provided</string>
+    <string name="jo_update_image">Job Order Update Image</string>
+    <string name="last_position">Last Position</string>
+
 
 </resources>
