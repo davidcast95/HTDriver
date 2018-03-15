@@ -11,8 +11,8 @@ android {
         applicationId "huang.android.logistic_driver"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 27
-        versionName "1.6"
+        versionCode 28
+        versionName "1.6.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -52,6 +52,11 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:11.2.2'
     compile 'com.google.firebase:firebase-auth:11.2.2'
     compile 'com.android.support:multidex:1.0.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    compile 'com.makeramen:roundedimageview:2.3.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'

@@ -117,8 +117,8 @@ public interface API {
     Call<JSONObject> submitJobOrder(@Body JobOrderData data);
 
 
-    @GET("/api/resource/Driver?fields=[\"nama\",\"phone\",\"address\",\"email\"]")
-    Call<ProfilResponse> getProfile(@Query("filters") String filter);
+    @GET("/api/method/logistic_marketplace.api.get_user")
+    Call<ProfilResponse> getProfile(@Query("driver") String driver);
 
     //BACKGROUND
     @POST("/api/resource/Driver Background Update")

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -131,6 +134,33 @@ public class DetailOrder extends AppCompatActivity {
                 TextView driver_phone = (TextView) findViewById(R.id.driver_phone);
 
                 Utility.utility.setTextView(principle, jobOrder.principle);
+
+                final ImageView profileImage = (ImageView)findViewById(R.id.profile_image);
+
+                if (jobOrder.principle_image.size() > 0) {
+                    String imageUrl = jobOrder.principle_image.get(0);
+                    MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(getApplicationContext());
+                    API api = Utility.utility.getAPIWithCookie(cookieJar);
+                    Call<ResponseBody> callImage = api.getImage(imageUrl);
+                    callImage.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()) {
+                                ResponseBody responseBody = response.body();
+                                if (responseBody != null) {
+                                    Bitmap bm = BitmapFactory.decodeStream(response.body().byteStream());
+                                    profileImage.setImageBitmap(bm);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
+                }
+
                 if (jobOrder.ref == null) jobOrder.ref = "";
                 Utility.utility.setTextView(ref, "Ref No : " + jobOrder.ref.replace("\n", ""));
 
@@ -390,6 +420,33 @@ public class DetailOrder extends AppCompatActivity {
                         TextView driver_phone = (TextView) findViewById(R.id.driver_phone);
 
                         Utility.utility.setTextView(principle, jobOrder.principle);
+
+                        final ImageView profileImage = (ImageView)findViewById(R.id.profile_image);
+
+                        if (jobOrder.principle_image.size() > 0) {
+                            String imageUrl = jobOrder.principle_image.get(0);
+                            MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(getApplicationContext());
+                            API api = Utility.utility.getAPIWithCookie(cookieJar);
+                            Call<ResponseBody> callImage = api.getImage(imageUrl);
+                            callImage.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    if (response.isSuccessful()) {
+                                        ResponseBody responseBody = response.body();
+                                        if (responseBody != null) {
+                                            Bitmap bm = BitmapFactory.decodeStream(response.body().byteStream());
+                                            profileImage.setImageBitmap(bm);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                }
+                            });
+                        }
+
                         jobOrder.joid = joid.getText().toString();
                         if (jobOrder.ref == null) jobOrder.ref = "";
                         Utility.utility.setTextView(ref, "Ref No : " + jobOrder.ref.replace("\n", ""));
