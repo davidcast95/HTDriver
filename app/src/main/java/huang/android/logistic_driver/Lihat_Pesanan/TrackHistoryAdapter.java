@@ -96,6 +96,9 @@ public class TrackHistoryAdapter extends ArrayAdapter<JobOrderUpdateData> {
         });
 
         ImageView button = (ImageView) view.findViewById(R.id.historymaps);
+        if (DetailOrder.jobOrderUpdates.get(position).longitude.equals("0.0") || DetailOrder.jobOrderUpdates.get(position).latitude.equals("0.0")) {
+            button.setVisibility(View.GONE);
+        }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

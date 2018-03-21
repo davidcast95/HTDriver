@@ -68,10 +68,7 @@ public class MainActivity extends AppCompatActivity
         Utility.utility.getLanguage(this);
         super.onCreate(savedInstanceState);
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
-        }
-
+        checkLocationPermission();
 
         FirebaseApp.initializeApp(this);
 

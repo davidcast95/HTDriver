@@ -11,8 +11,8 @@ android {
         applicationId "huang.android.logistic_driver"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 28
-        versionName "1.6.1"
+        versionCode 29
+        versionName "1.6.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

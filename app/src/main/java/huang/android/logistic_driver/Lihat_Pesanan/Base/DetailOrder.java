@@ -137,8 +137,8 @@ public class DetailOrder extends AppCompatActivity {
 
                 final ImageView profileImage = (ImageView)findViewById(R.id.profile_image);
 
-                if (jobOrder.principle_image.size() > 0) {
-                    String imageUrl = jobOrder.principle_image.get(0);
+                String imageUrl = jobOrder.principle_image.get(0);
+                if (imageUrl != null) {
                     MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(getApplicationContext());
                     API api = Utility.utility.getAPIWithCookie(cookieJar);
                     Call<ResponseBody> callImage = api.getImage(imageUrl);
@@ -423,8 +423,8 @@ public class DetailOrder extends AppCompatActivity {
 
                         final ImageView profileImage = (ImageView)findViewById(R.id.profile_image);
 
-                        if (jobOrder.principle_image.size() > 0) {
-                            String imageUrl = jobOrder.principle_image.get(0);
+                        String imageUrl = jobOrder.principle_image.get(0);
+                        if (imageUrl != null) {
                             MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(getApplicationContext());
                             API api = Utility.utility.getAPIWithCookie(cookieJar);
                             Call<ResponseBody> callImage = api.getImage(imageUrl);

@@ -60,8 +60,8 @@ public class JobOrderAdapter extends ArrayAdapter<JobOrderData> {
 
         JobOrderData jobOrder = list.get(position);
 
-        if (jobOrder.principle_image.size() > 0) {
-            String imageUrl = jobOrder.principle_image.get(0);
+        String imageUrl = jobOrder.principle_image.get(0);
+        if (imageUrl != null) {
             MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(context);
             API api = Utility.utility.getAPIWithCookie(cookieJar);
             Call<ResponseBody> callImage = api.getImage(imageUrl);
