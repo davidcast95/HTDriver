@@ -226,6 +226,7 @@ public class DetailOrder extends AppCompatActivity {
         Utility.utility.setTextView(stopLocationTV,Utility.utility.longFormatLocation(new Location(route.distributor_code,route.location,route.city,route.address,route.warehouse_name,"","")));
         Utility.utility.setTextView(nameTV,route.nama);
         Utility.utility.setTextView(cpTV,route.phone);
+        Utility.utility.setDialContactPhone(cpTV, route.phone, this);
         Utility.utility.setTextView(itemTV,route.item_info);
         Utility.utility.setTextView(remarkTV,route.remark);
 
