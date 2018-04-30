@@ -122,25 +122,26 @@ public class OrderDone extends Fragment implements PagingListView.Pagingable{
             @Override
             public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
                 loading.setVisibility(View.GONE);
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(),response,"")) {
-                    GetJobOrderResponse jobOrderResponse = response.body();
-                    if (jobOrderResponse.jobOrders != null) {
-                        orderDoneAdapter.addAll(jobOrderResponse.jobOrders);
-                        lv.onFinishLoading(true,null);
+                if (getActivity().getApplicationContext() != null) {
+                    if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response, "")) {
+                        GetJobOrderResponse jobOrderResponse = response.body();
+                        if (jobOrderResponse.jobOrders != null) {
+                            orderDoneAdapter.addAll(jobOrderResponse.jobOrders);
+                            lv.onFinishLoading(true, null);
+                        } else {
+                            lv.onFinishLoading(false, null);
+                        }
+                        if (jobOrders.size() == 0) {
+                            noData.setVisibility(View.VISIBLE);
+                        } else {
+                            noData.setVisibility(View.GONE);
+                            lv.setVisibility(View.VISIBLE);
+                        }
+                        onItemsLoadComplete();
                     } else {
-                        lv.onFinishLoading(false,null);
+                        Utility.utility.showConnectivityUnstable(getActivity().getApplicationContext());
                     }
-                    if (jobOrders.size() == 0) {
-                        noData.setVisibility(View.VISIBLE);
-                    } else {
-                        noData.setVisibility(View.GONE);
-                        lv.setVisibility(View.VISIBLE);
-                    }
-                    onItemsLoadComplete();
-                } else {
-                    Utility.utility.showConnectivityUnstable(getActivity().getApplicationContext());
                 }
-
             }
 
             @Override

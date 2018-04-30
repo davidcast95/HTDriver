@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import huang.android.logistic_driver.API.API;
+import huang.android.logistic_driver.Model.FirebaseID.FirebaseIDData;
+import huang.android.logistic_driver.Model.FirebaseID.FirebaseIDResponse;
 import huang.android.logistic_driver.Model.Login.DriverLogin;
 import huang.android.logistic_driver.Model.Login.LoginUserPermission;
 import huang.android.logistic_driver.Model.Login.LoginUserPermissionResponse;
@@ -66,12 +68,7 @@ public class Login extends AppCompatActivity {
 
                 loading.setVisibility(View.GONE);
                 if(response.code() == 200) {
-                    Utility.utility.saveLoggedName(user, activity);
-                    Utility.utility.saveUsername(user,activity);
-                    Utility.utility.saveCookieJarToPreference(cookieJar, activity);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
-//                    checkPermission();
+                    checkPermission(cookieJar);
                 } else {
                     Toast.makeText(getApplicationContext(),"Username or password is invalid",Toast.LENGTH_SHORT).show();
                 }
@@ -85,18 +82,30 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    void checkPermission() {
-        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+    void checkPermission(final MyCookieJar cookieJar) {
         API api = Utility.utility.getAPIWithCookie(cookieJar);
-        Call<LoginUserPermissionResponse> loginUserPermissionResponseCall = api.loginPermission("[[\"User Permission\",\"allow\",\"=\",\"Driver\"]]");
-        final Activity thisActivity = this;
-        loginUserPermissionResponseCall.enqueue(new Callback<LoginUserPermissionResponse>() {
+        Call<FirebaseIDResponse> loginUserPermissionResponseCall = api.getFirebaseID("Driver");
+        final Activity activity = this;
+        loginUserPermissionResponseCall.enqueue(new Callback<FirebaseIDResponse>() {
             @Override
-            public void onResponse(Call<LoginUserPermissionResponse> call, Response<LoginUserPermissionResponse> response) {
+            public void onResponse(Call<FirebaseIDResponse> call, Response<FirebaseIDResponse> response) {
                 if (Utility.utility.catchResponse(getApplicationContext(), response, "")) {
-                    List<LoginUserPermission> data = response.body().data;
-                    if (data.size() > 0) {
-
+                    FirebaseIDResponse firebaseIDResponse = response.body();
+                    if (firebaseIDResponse != null) {
+                        if (firebaseIDResponse.message.role.equals("valid")) {
+                            List<FirebaseIDData> data = firebaseIDResponse.message.for_value;
+                            if (data.size() > 0) {
+                                Utility.utility.saveLoggedName(user, activity);
+                                Utility.utility.saveUsername(user,activity);
+                                Utility.utility.saveCookieJarToPreference(cookieJar, activity);
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(),"Username or password is invalid",Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(),"Username or password is invalid",Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(getApplicationContext(),"Username or password is invalid",Toast.LENGTH_SHORT).show();
                     }
@@ -104,7 +113,7 @@ public class Login extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginUserPermissionResponse> call, Throwable t) {
+            public void onFailure(Call<FirebaseIDResponse> call, Throwable t) {
                 Utility.utility.showConnectivityUnstable(getApplicationContext());
             }
         });

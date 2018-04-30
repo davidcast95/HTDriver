@@ -9,6 +9,8 @@ import huang.android.logistic_driver.Model.Default.DataMessage;
 import huang.android.logistic_driver.Model.Driver.Driver;
 import huang.android.logistic_driver.Model.Driver.DriverBackgroundUpdateResponse;
 import huang.android.logistic_driver.Model.Driver.DriverResponse;
+import huang.android.logistic_driver.Model.Driver.RouteResponse;
+import huang.android.logistic_driver.Model.FirebaseID.FirebaseIDResponse;
 import huang.android.logistic_driver.Model.History.HistoryResponse;
 import huang.android.logistic_driver.Model.JobOrder.GetJobOrderResponse;
 import huang.android.logistic_driver.Model.JobOrder.JobOrderData;
@@ -87,6 +89,10 @@ public interface API {
     Call<JSONObject> registerDriver(@Body Driver newDriver);
     @PUT("/api/resource/Driver/{id}")
     Call<JSONObject> updateDriver(@Path("id") String id, @Body HashMap<String , String> change);
+    @GET("/api/method/logistic_marketplace.api.get_route")
+    Call<RouteResponse> getRoute(@Query("startjou") String startjou, @Query("endjou") String endjou, @Query("driver") String driver);
+    @GET("/api/method/logistic_marketplace.api.get_last_route")
+    Call<RouteResponse> getLastRoute(@Query("lastjou") String lastjou, @Query("driver") String driver);
 
     //COMMUNICATION
     @GET("/api/resource/Communication?fields=[\"creation\",\"sender\",\"sender_full_name\",\"content\"]&limit_page_length=1000")
@@ -131,6 +137,8 @@ public interface API {
     Call<DriverLogin> login(@Query("usr") String usr, @Query("pwd") String pwd, @Query("device") String device);
     @GET("/api/resource/User Permission/?fields=[\"for_value\",\"allow\"]")
     Call<LoginUserPermissionResponse> loginPermission(@Query("filters") String filters);
+    @GET("/api/method/logistic_marketplace.api.get_firebase_id")
+    Call<FirebaseIDResponse> getFirebaseID(@Query("role") String role);
 
     @GET("/api/method/logistic.job_order.list")
     Call<JobOrderResponse> getJobOrderList(@Query("type") String type, @Query("typeid") String typeid, @Query("status") String status);

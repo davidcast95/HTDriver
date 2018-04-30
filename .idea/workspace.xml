@@ -10,18 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a0f2667-ead4-4441-9d7d-d30761a0a618" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/loc.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/notification_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/loc.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/notification_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/loc.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/notification_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/loc.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/notification_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/loc.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/notification_icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/Driver/RouteData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/Driver/RouteResponse.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDMessage.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDResponse.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/release/Digitruk Driver v1.4.apk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/release/Digitruk Driver v1.5.1.apk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/release/Digitruk Driver v1.5.2.apk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/release/Digitruk Driver v1.5.3.apk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/release/Digitruk Driver v1.5.apk" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/release/Digitruk Driver v1.6.apk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/loc.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
@@ -33,12 +32,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/release/output.json" afterPath="$PROJECT_DIR$/app/release/output.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/API/API.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/API/API.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Firebase/FirebaseMessageService.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Firebase/FirebaseMessageService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/DetailOrder.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/DetailOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/StopLocationViewerAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/StopLocationViewerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/CheckPoint.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/CheckPoint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Done/OrderDone.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Done/OrderDone.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackHistory.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackHistory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_stop_location_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_stop_location_detail.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Utility.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Utility.java" />
     </list>
     <ignored path="HTDriver.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,59 +73,27 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="81" lean-forward="true" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
+            <state relative-caret-position="195">
+              <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="loc_1.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/loc_1.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FirebaseMessageService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Firebase/FirebaseMessageService.java">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-266">
-              <caret line="61" column="9" lean-forward="false" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TrackHistoryAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackHistoryAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="44" column="22" lean-forward="false" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
+            <state relative-caret-position="391">
+              <caret line="98" column="9" lean-forward="false" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1193#1194#0" expanded="false" />
-                <element signature="e#1227#1228#0" expanded="false" />
-                <element signature="e#1284#1285#0" expanded="false" />
-                <element signature="e#1308#1309#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StopLocationViewerAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/StopLocationViewerAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1260">
-              <caret line="107" column="54" lean-forward="false" selection-start-line="107" selection-start-column="54" selection-end-line="108" selection-end-column="73" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1321#1322#0" expanded="false" />
-                <element signature="e#1367#1368#0" expanded="false" />
-                <element signature="e#3513#3514#0" expanded="false" />
-                <element signature="e#3583#3584#0" expanded="false" />
-                <element signature="e#5312#5313#0" expanded="false" />
-                <element signature="e#5391#5392#0" expanded="false" />
+                <element signature="e#3287#3318#0" expanded="true" />
+                <element signature="e#3320#3352#0" expanded="true" />
+                <element signature="e#3822#3840#0" expanded="true" />
+                <element signature="e#6560#6578#0" expanded="true" />
+                <element signature="e#6706#6725#0" expanded="true" />
+                <element signature="e#6859#6880#0" expanded="true" />
+                <element signature="e#7010#7027#0" expanded="true" />
+                <element signature="e#7162#7174#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -134,18 +102,71 @@
       <file leaf-file-name="TrackHistory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackHistory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="286" column="34" lean-forward="false" selection-start-line="286" selection-start-column="34" selection-end-line="286" selection-end-column="34" />
+            <state relative-caret-position="347">
+              <caret line="302" column="13" lean-forward="false" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CheckPoint.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/CheckPoint.java">
+      <file leaf-file-name="Utility.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Utility.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="427" column="25" lean-forward="false" selection-start-line="427" selection-start-column="25" selection-end-line="427" selection-end-column="25" />
+            <state relative-caret-position="1695">
+              <caret line="150" column="21" lean-forward="false" selection-start-line="150" selection-start-column="21" selection-end-line="150" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="915">
+              <caret line="84" column="4" lean-forward="false" selection-start-line="84" selection-start-column="4" selection-end-line="119" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="method#checkPermission#0;class#Login#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="API.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/API/API.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1395">
+              <caret line="138" column="88" lean-forward="false" selection-start-line="138" selection-start-column="88" selection-end-line="140" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FirebaseIDData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FirebaseIDResponse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDResponse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="13" column="37" lean-forward="false" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FirebaseIDMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDMessage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="13" column="32" lean-forward="false" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -154,44 +175,9 @@
       <file leaf-file-name="DetailOrder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/DetailOrder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2700">
-              <caret line="228" column="24" lean-forward="false" selection-start-line="228" selection-start-column="24" selection-end-line="228" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#12139#12140#0" expanded="false" />
-                <element signature="e#12218#12219#0" expanded="false" />
-                <element signature="e#15438#15439#0" expanded="false" />
-                <element signature="e#15489#15490#0" expanded="false" />
-                <element signature="e#18929#18930#0" expanded="false" />
-                <element signature="e#18955#18956#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dialog_stop_location_detail.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_stop_location_detail.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-              <folding>
-                <element signature="e#321#5207#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utility.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Utility.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3840">
-              <caret line="293" column="28" lean-forward="false" selection-start-line="293" selection-start-column="28" selection-end-line="293" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+            <state relative-caret-position="5070">
+              <caret line="392" column="47" lean-forward="false" selection-start-line="392" selection-start-column="47" selection-end-line="392" selection-end-column="47" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -208,11 +194,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>logou</find>
-      <find>build</find>
-      <find>createlic</find>
-      <find>check</find>
-      <find>checkloc</find>
       <find>form</find>
       <find>catc</find>
       <find>updatedr</find>
@@ -238,6 +219,11 @@
       <find>vendor_imag</find>
       <find>longi</find>
       <find>dial</find>
+      <find>Notifi</find>
+      <find>notification.def</find>
+      <find>register</find>
+      <find>job order upda</find>
+      <find>login</find>
     </findStrings>
     <replaceStrings>
       <replace>R.layout.spinner_item</replace>
@@ -2108,25 +2094,18 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/GPSActivity/LocationResultHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/PushNotificationAction/PushNotificationAction.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/Communication/CommunicationResponse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Chat/ChatAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-in/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/active_track_titlebar.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Chat/Chat.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/GPSActivity/LocationUpdatesIntentService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/APILogData.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Dashboard.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Utility.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Gallery/GalleryPhotoDefaultFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_track_history_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/JobOrderUpdateImage/JobOrderUpdateImageResponse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Gallery/GalleryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Active/OrderActive.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Done/OrderDone.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/Driver/DriverBackgroundUpdateData.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-in/strings.xml" />
@@ -2141,7 +2120,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_order.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/ProfilDriver/ProfilResponse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/ProfilDriver/Profil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/API/API.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/sample_round_image_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/RoundImageView.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/RoundImageView.java" />
@@ -2149,15 +2127,23 @@
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Profile/MyProfile.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_self_user.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_other_user.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/JobOrderAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackHistoryAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/StopLocationViewerAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/DetailOrder.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_stop_location_detail.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackHistory.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/CheckPoint.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Firebase/FirebaseMessageService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/Driver/RouteData.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Done/OrderDone.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Utility.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDData.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/API/API.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDResponse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDMessage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackHistory.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
@@ -2182,7 +2168,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2205,9 +2190,64 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTDriver" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTDriver" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="logistic_driver" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTDriver" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="logistic_driver" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lihat_Pesanan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2236,7 +2276,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2253,6 +2293,7 @@
     <property name="sourceResolution" value="XHDPI" />
     <property name="resolutions" value="XXHDPI&#10;HDPI&#10;XXXHDPI&#10;MDPI&#10;XHDPI" />
     <property name="format" value="PNG" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -2356,7 +2397,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523332420972" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525062939631" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2404,7 +2445,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523332420972" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525062939631" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2436,27 +2477,6 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -2587,7 +2607,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523332420973" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525062939634" />
       </method>
     </configuration>
     <list size="1">
@@ -2628,9 +2648,9 @@
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="824" extended-state="0" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32863188" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32768363" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2774,26 +2794,20 @@
           <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java</url>
-          <line>270</line>
-          <properties />
-          <option name="timeStamp" value="121" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Firebase/FirebaseMessageService.java</url>
-          <line>49</line>
+          <line>56</line>
           <properties />
           <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Firebase/FirebaseMessageService.java</url>
-          <line>62</line>
+          <line>72</line>
           <properties />
           <option name="timeStamp" value="129" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Firebase/FirebaseMessageService.java</url>
-          <line>70</line>
+          <line>80</line>
           <properties />
           <option name="timeStamp" value="130" />
         </line-breakpoint>
@@ -2834,98 +2848,29 @@
           <option name="timeStamp" value="144" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/GPSActivity/LocationResultHelper.java</url>
-          <line>163</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java</url>
+          <line>86</line>
           <properties />
-          <option name="timeStamp" value="147" />
+          <option name="timeStamp" value="159" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/GPSActivity/LocationResultHelper.java</url>
-          <line>177</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java</url>
+          <line>91</line>
           <properties />
-          <option name="timeStamp" value="148" />
+          <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java</url>
-          <line>308</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java</url>
+          <line>116</line>
           <properties />
-          <option name="timeStamp" value="152" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java</url>
-          <line>340</line>
-          <properties />
-          <option name="timeStamp" value="154" />
+          <option name="timeStamp" value="161" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="155" />
+      <option name="time" value="162" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/JobOrderUpdate/JobOrderUpdateData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="40" column="48" lean-forward="false" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-in/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="50" column="42" lean-forward="false" selection-start-line="50" selection-start-column="42" selection-end-line="50" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Active/DetailOrderActive.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="37" column="49" lean-forward="false" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1375#1376#0" expanded="false" />
-            <element signature="e#1421#1422#0" expanded="false" />
-            <element signature="e#1487#1488#0" expanded="false" />
-            <element signature="e#1514#1515#0" expanded="false" />
-            <element signature="e#1563#1564#0" expanded="false" />
-            <element signature="e#1614#1615#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Done/DetailOrderDone.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="33" column="42" lean-forward="false" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1308#1309#0" expanded="false" />
-            <element signature="e#1354#1355#0" expanded="false" />
-            <element signature="e#1420#1421#0" expanded="false" />
-            <element signature="e#1447#1448#0" expanded="false" />
-            <element signature="e#1496#1497#0" expanded="false" />
-            <element signature="e#1545#1546#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="59" column="41" lean-forward="false" selection-start-line="59" selection-start-column="41" selection-end-line="59" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_check_point.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="37" selection-end-line="17" selection-end-column="77" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackOrderList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -2961,20 +2906,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="60" column="16" lean-forward="false" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Done/OrderDone.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="43" column="28" lean-forward="false" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2392#2393#0" expanded="false" />
-            <element signature="e#2438#2439#0" expanded="false" />
-            <element signature="e#7005#7006#0" expanded="false" />
-            <element signature="e#7035#7036#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3126,35 +3057,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/GPSActivity/LocationResultHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1800">
-          <caret line="166" column="72" lean-forward="false" selection-start-line="166" selection-start-column="72" selection-end-line="166" selection-end-column="72" />
-          <folding>
-            <element signature="e#0#6770#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#2458#2459#0" expanded="false" />
-            <element signature="e#2492#2493#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="104" column="25" lean-forward="false" selection-start-line="98" selection-start-column="20" selection-end-line="104" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#4193#4194#0" expanded="false" />
-            <element signature="e#4246#4247#0" expanded="false" />
-            <element signature="e#5248#5249#0" expanded="false" />
-            <element signature="e#5315#5316#0" expanded="false" />
-            <element signature="e#8663#8664#0" expanded="false" />
-            <element signature="e#8697#8698#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/JobOrderAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
@@ -3162,19 +3064,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/API/API.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="59" column="28" lean-forward="false" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2640">
           <caret line="176" column="40" lean-forward="false" selection-start-line="176" selection-start-column="40" selection-end-line="176" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3187,13 +3080,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="44" column="22" lean-forward="false" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1193#1194#0" expanded="false" />
-            <element signature="e#1227#1228#0" expanded="false" />
-            <element signature="e#1284#1285#0" expanded="false" />
-            <element signature="e#1308#1309#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3201,15 +3087,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
           <caret line="107" column="54" lean-forward="false" selection-start-line="107" selection-start-column="54" selection-end-line="108" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1321#1322#0" expanded="false" />
-            <element signature="e#1367#1368#0" expanded="false" />
-            <element signature="e#3513#3514#0" expanded="false" />
-            <element signature="e#3583#3584#0" expanded="false" />
-            <element signature="e#5312#5313#0" expanded="false" />
-            <element signature="e#5391#5392#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3217,62 +3094,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-          <folding>
-            <element signature="e#321#5207#0" expanded="false" />
-          </folding>
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Utility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3840">
-          <caret line="293" column="28" lean-forward="false" selection-start-line="293" selection-start-column="28" selection-end-line="293" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/DetailOrder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2700">
-          <caret line="228" column="24" lean-forward="false" selection-start-line="228" selection-start-column="24" selection-end-line="228" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#12139#12140#0" expanded="false" />
-            <element signature="e#12218#12219#0" expanded="false" />
-            <element signature="e#15438#15439#0" expanded="false" />
-            <element signature="e#15489#15490#0" expanded="false" />
-            <element signature="e#18929#18930#0" expanded="false" />
-            <element signature="e#18955#18956#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/loc.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/loc.png" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/loc_1.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackHistory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="286" column="34" lean-forward="false" selection-start-line="286" selection-start-column="34" selection-end-line="286" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/CheckPoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
+        <state relative-caret-position="5310">
           <caret line="427" column="25" lean-forward="false" selection-start-line="427" selection-start-column="25" selection-end-line="427" selection-end-column="25" />
           <folding />
         </state>
@@ -3283,18 +3119,135 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/GPSActivity/LocationResultHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1965">
+          <caret line="177" column="0" lean-forward="false" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Firebase/FirebaseMessageService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-266">
-          <caret line="61" column="9" lean-forward="false" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
+        <state relative-caret-position="555">
+          <caret line="59" column="39" lean-forward="false" selection-start-line="59" selection-start-column="39" selection-end-line="59" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#3973#3974#0" expanded="false" />
+            <element signature="e#4073#4074#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/Driver/RouteResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/Driver/RouteData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Done/OrderDone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1395">
+          <caret line="125" column="91" lean-forward="false" selection-start-line="125" selection-start-column="91" selection-end-line="125" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/Base/DetailOrder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5070">
+          <caret line="392" column="47" lean-forward="false" selection-start-line="392" selection-start-column="47" selection-end-line="392" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Utility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1695">
+          <caret line="150" column="21" lean-forward="false" selection-start-line="150" selection-start-column="21" selection-end-line="150" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" column="37" lean-forward="false" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Model/FirebaseID/FirebaseIDMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" column="32" lean-forward="false" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/API/API.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1395">
+          <caret line="138" column="88" lean-forward="false" selection-start-line="138" selection-start-column="88" selection-end-line="140" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="915">
+          <caret line="84" column="4" lean-forward="false" selection-start-line="84" selection-start-column="4" selection-end-line="119" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="method#checkPermission#0;class#Login#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="98" column="9" lean-forward="false" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+          <folding>
+            <element signature="e#3287#3318#0" expanded="true" />
+            <element signature="e#3320#3352#0" expanded="true" />
+            <element signature="e#3822#3840#0" expanded="true" />
+            <element signature="e#6560#6578#0" expanded="true" />
+            <element signature="e#6706#6725#0" expanded="true" />
+            <element signature="e#6859#6880#0" expanded="true" />
+            <element signature="e#7010#7027#0" expanded="true" />
+            <element signature="e#7162#7174#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_driver/Lihat_Pesanan/TrackHistory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="302" column="13" lean-forward="false" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="81" lean-forward="true" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
+        <state relative-caret-position="195">
+          <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
           <folding />
         </state>
       </provider>

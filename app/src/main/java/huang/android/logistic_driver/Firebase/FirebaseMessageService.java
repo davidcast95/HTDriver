@@ -1,9 +1,12 @@
 package huang.android.logistic_driver.Firebase;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
@@ -47,15 +50,22 @@ public class FirebaseMessageService extends FirebaseMessagingService {
     private void displayNotification(String title, String content, Map<String,String > data){
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
 
+        Uri uriSound = Uri.parse("android.resource://"+getPackageName()+"/raw/merope_ringtone");
+
+        grantUriPermission(getPackageName(), uriSound,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION);
         notificationBuilder.setAutoCancel(true)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setTicker("Hearty365")
                 .setPriority(NotificationCompat.PRIORITY_MAX) // this is deprecated in API 26 but you can still use for below 26. check below update for 26 API
                 .setContentTitle(title)
                 .setContentText(Html.fromHtml(content))
-                .setContentInfo("Info");
+                .setContentInfo("Info")
+                .setSound(uriSound)
+                .setVibrate(new long[]{1000,1000,1000,1000,1000})
+                .setLights(getColor(R.color.colorPrimary), 3000, 3000);
+//        notificationBuilder.setDefaults(Notification.D);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             notificationBuilder.setSmallIcon(R.drawable.notification_icon);
             notificationBuilder.setColor(getResources().getColor(R.color.colorPrimary));

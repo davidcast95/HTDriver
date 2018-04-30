@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         Utility.utility.getLanguage(this);
         super.onCreate(savedInstanceState);
 
+
         checkLocationPermission();
 
         FirebaseApp.initializeApp(this);
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity
 
         GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
 
-        String driver = Utility.utility.getLoggedName(this).replace(" ", "_").replace("@", "_");
+        String driver = Utility.utility.normalizeStringForFirebaseTopic(Utility.utility.getLoggedName(this));
         FirebaseMessaging.getInstance().subscribeToTopic(driver);
         wakeCPU();
 
